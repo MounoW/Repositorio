@@ -1,16 +1,17 @@
-//import { Person } from './types';
+import { Outlet } from 'react-router-dom';
+
+import { Navbar } from './components/navbar/navbar.tsx';
 import './firebase.ts';
 
 import './App.scss';
 
-interface AppProps {
-    value: string;
-}
-
-function App({ value }: AppProps) {
-    //let p = { name: 'Fábio', age: 21, address: 'abc' } as Person;
-
-    return <div>Hello World! {value}</div>;
+function App() {
+    return (
+        <>
+            <Navbar />
+            <Outlet />
+        </>
+    );
 }
 
 export default App;
