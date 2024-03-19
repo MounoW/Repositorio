@@ -6,7 +6,7 @@ export const Navbar = () => {
         <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
-                    Navbar
+                    <img src="src\components\images\logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button
                     className="navbar-toggler"
@@ -23,52 +23,29 @@ export const Navbar = () => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link className="nav-link active" aria-current="page" to="/">
-                                Home
+                                Página Inicial
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/pricing">
-                                Pricing
+                            <Link className="nav-link" to="/trades">
+                                Trocas
                             </Link>
                         </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li>
-                                    <a className="dropdown-item" href="#">
-                                        Action
-                                    </a>
-                                </li>
-                                <li>
-                                    <a className="dropdown-item" href="#">
-                                        Another action
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr className="dropdown-divider" />
-                                </li>
-                                <li>
-                                    <a className="dropdown-item" href="#">
-                                        Something else here
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                         <li className="nav-item">
-                            <a className="nav-link disabled" aria-disabled="true">
-                                Disabled
-                            </a>
+                            <Link className="nav-link" to="/market">
+                                Mercado
+                            </Link>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
-                    </form>
                 </div>
+                <ul className="nav justify-content-center">
+                    <li className="nav-item">
+                        <img src="src\components\images\market car.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
+                    </li>
+                    <li className="nav-item" style={{ marginLeft: '20px' }}>
+                        <img src="src\components\images\bookPin.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
+                    </li>
+                </ul>
             </div>
         </nav>
     );
