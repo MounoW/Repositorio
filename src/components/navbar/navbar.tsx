@@ -6,7 +6,7 @@ export const Navbar = () => {
         <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
                 <a className="navbar-brand" href="#">
-                    <img src="src\components\images\logo.png" alt="" style={{ width: '150px', height: '60px' }} />
+                    <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button
                     className="navbar-toggler"
@@ -40,10 +40,10 @@ export const Navbar = () => {
                 </div>
                 <ul className="nav justify-content-center">
                     <li className="nav-item">
-                        <img src="src\components\images\market car.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
+                        <img src="images\market car.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
                     </li>
                     <li className="nav-item" style={{ marginLeft: '20px' }}>
-                        <img src="src\components\images\bookPin.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
+                        <img src="images\bookPin.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
                     </li>
                 </ul>
             </div>
