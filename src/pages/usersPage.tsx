@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
 
 import { Card } from '../components/card/card';
+import { DropDown } from '../components/dropdown/dropdown';
 
 interface UserInfo {
     id: number;
@@ -18,11 +20,19 @@ export const UserPage = () => {
     }, []);
 
     return (
-        <div className="container ">
-            <div className="row justify-content-center">
-                {users.map(user => {
-                    return <Card key={user.id} name={user.name} email={user.email} id={user.id} />;
-                })}
+        <div className="container " style={{ backgroundColor: 'royalblue' }}>
+            <div>
+                <DropDown></DropDown>
+            </div>
+            <div className="container" style={{ border: '5px solid black', marginTop: '10px', paddingTop: '10px', backgroundColor: 'midnightblue' }}>
+                <div style={{ backgroundColor: 'lightblue', padding: '10px', textAlign: 'center' }}>
+                    <a style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>Equipa 1</a>
+                </div>
+                <div className="row justify-content-center">
+                    {users.map(user => {
+                        return <Card key={user.id} name={user.name} email={user.email} id={user.id} />;
+                    })}
+                </div>
             </div>
         </div>
     );

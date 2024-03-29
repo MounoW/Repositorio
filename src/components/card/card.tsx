@@ -19,7 +19,7 @@ export const Card = ({ name, email, id }: CardProps) => {
             <div className="card-body">
                 <h5 className="card-title">{name}</h5>
                 <p className="card-text">{email}</p>
-                <Link to={`/user-details/${id}/${email}`} className="btn btn-primary">
+                <Link to={`/user-details/${id}/${email}`} className="btn btn-danger">
                     See Details
                 </Link>
             </div>

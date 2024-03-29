@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export const Navbar = () => {
     return (
-        <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary ">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="/">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button
