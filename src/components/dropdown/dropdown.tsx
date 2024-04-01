@@ -9,7 +9,7 @@ export const DropDown = () => {
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                style={{ marginTop: '30px' }}
+                style={{ marginTop: '10px' }}
             >
                 Departamento __ /__
             </button>
