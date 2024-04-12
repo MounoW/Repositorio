@@ -7,6 +7,7 @@ import { TradesPage } from './pages/tradesPage.tsx';
 import { UserPage } from './pages/usersPage.tsx';
 import { MarketPage } from './pages/marketPage.tsx';
 import { UserDetailPage } from './pages/userDetailPage.tsx';
+import { LoginPage } from './pages/loginPage.tsx';
 import App from './App.tsx';
 
 import './index.scss';
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '',
+                element: <LoginPage />
+            },
+            {
+                path: '/mainmenu',
                 element: <UserPage />
             },
             {

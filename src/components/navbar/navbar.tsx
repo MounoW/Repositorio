@@ -5,7 +5,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary ">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">
+                <a className="navbar-brand" href="/mainmenu">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button
@@ -22,7 +22,7 @@ export const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">
+                            <Link className="nav-link active" aria-current="page" to="/mainmenu">
                                 Página Inicial
                             </Link>
                         </li>
