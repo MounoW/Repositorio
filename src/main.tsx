@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { TradesPage } from './pages/tradesPage.tsx';
 import { UserPage } from './pages/usersPage.tsx';
 import { MarketPage } from './pages/marketPage.tsx';
-import { UserDetailPage } from './pages/userDetailPage.tsx';
 import { LoginPage } from './pages/loginPage.tsx';
 import App from './App.tsx';
 
@@ -32,10 +31,6 @@ const router = createBrowserRouter([
             {
                 path: '/market',
                 element: <MarketPage />
-            },
-            {
-                path: '/user-details/:userid/:email',
-                element: <UserDetailPage />
             }
         ]
     }

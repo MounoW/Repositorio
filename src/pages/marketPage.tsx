@@ -1,3 +1,10 @@
+import { Navbar } from '../components/navbar/navbar';
+
 export const MarketPage = () => {
-    return <div>Mercado</div>;
+    return (
+        <>
+            <Navbar />
+            <div> Mercado</div>
+        </>
+    );
 };
