@@ -1,10 +1,13 @@
 import { Navbar } from '../components/navbar/navbar';
+import { TableMarket } from '../components/tableMarket/tableMarket';
 
 export const MarketPage = () => {
     return (
         <>
             <Navbar />
-            <div> Mercado</div>
+            <div className="container">
+                <TableMarket />
+            </div>
         </>
     );
 };

@@ -1,10 +1,14 @@
+import { AddButton } from '../components/addButton/addButton';
 import { Navbar } from '../components/navbar/navbar';
+import { Table } from '../components/table/table';
 
 export const TradesPage = () => {
     return (
         <>
             <Navbar />
-            <div> Trocas</div>
+            <text>Adicionar Troca</text>
+            <AddButton />
+            <Table />
         </>
     );
 };

@@ -27,13 +27,13 @@ export const Navbar = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/trades">
-                                Trocas
+                            <Link className="nav-link" to="/market">
+                                Mercado
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/market">
-                                Mercado
+                            <Link className="nav-link" to="/trades">
+                                Trocas
                             </Link>
                         </li>
                     </ul>

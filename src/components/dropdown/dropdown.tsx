@@ -1,35 +1,22 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+// import React from 'react';
 
 import './dropdown.scss';
-export const DropDown = () => {
+
+interface DropDownProps {
+    setSelectedDepartment: (id: number) => void;
+}
+
+export const DropDown = ({ setSelectedDepartment }: DropDownProps) => {
+    function handleCenas(event: React.ChangeEvent<HTMLSelectElement>) {
+        setSelectedDepartment(Number(event.target.value));
+    }
+
     return (
-        <div className="dropdown">
-            <button
-                className="btn btn-success dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                style={{ marginTop: '10px' }}
-            >
-                Departamento __ /__
-            </button>
-            <ul className="dropdown-menu">
-                <li>
-                    <a className="dropdown-item " href="#">
-                        Departamento a
-                    </a>
-                </li>
-                <li>
-                    <a className="dropdown-item" href="#">
-                        Departamento b
-                    </a>
-                </li>
-                <li>
-                    <a className="dropdown-item" href="#">
-                        Departamento c
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <select className="form-select select" aria-label="Default select example" onChange={handleCenas}>
+            <option selected>Todos</option>
+            <option value="1">Departamento A</option>
+            <option value="2">Departamento B</option>
+            <option value="3">Departamento C</option>
+        </select>
     );
 };

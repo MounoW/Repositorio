@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card } from '../components/card/card';
 //import { DropDown } from '../components/dropdown/dropdown';
 import { Navbar } from '../components/navbar/navbar';
+import { DropDown } from '../components/dropdown/dropdown';
 
 interface UserInfo {
     id: number;
@@ -11,8 +12,11 @@ interface UserInfo {
     username: string;
     email: string;
 }
+
 export const UserPage = () => {
     const [users, setUsers] = useState<UserInfo[]>([]);
+
+    const [departmentid, setDepartmentid] = useState<number>();
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
@@ -24,10 +28,10 @@ export const UserPage = () => {
         <>
             <Navbar />
             <div style={{ backgroundColor: 'red' }}>
-                <div className="container " style={{ backgroundColor: 'royalblue' }}>
-                    {/* <div>
-                        <DropDown></DropDown>
-                    </div> */}
+                <div className="container" style={{ backgroundColor: 'royalblue' }}>
+                    <div>
+                        <DropDown setSelectedDepartment={setDepartmentid} />
+                    </div>
 
                     <div
                         className="container"
@@ -37,9 +41,11 @@ export const UserPage = () => {
                             <a style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>Equipa 1</a>
                         </div>
                         <div className="row justify-content-center">
-                            {users.map(user => {
-                                return <Card key={user.id} name={user.name} email={user.email} id={user.id} />;
-                            })}
+                            {users
+                                .filter(user => user.id === departmentid || !departmentid)
+                                .map(user => {
+                                    return <Card key={user.id} name={user.name} email={user.email} id={user.id} />;
+                                })}
                         </div>
                     </div>
                 </div>

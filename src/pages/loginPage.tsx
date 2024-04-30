@@ -5,6 +5,8 @@ import { UserPage } from './usersPage.tsx';
 
 import { auth } from '../firebase.ts';
 
+import './loginPage.scss';
+
 export const LoginPage = () => {
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -27,10 +29,17 @@ export const LoginPage = () => {
     }
 
     return (
-        <div className="pt-36 w-full flex">
-            <button onClick={handleGoogle} className="mx-auto border-4 bg-green-500">
-                Sign In With Google
-            </button>
-        </div>
+        <>
+            <div className="container_login">
+                <div className="logo_container">
+                    <img src="images/logo.png" alt="" className="logo_image" />
+                </div>
+                <div className="button_container">
+                    <button onClick={handleGoogle} className="button_signin button_container">
+                        Fazer Login com o Google
+                    </button>
+                </div>
+            </div>
+        </>
     );
 };
