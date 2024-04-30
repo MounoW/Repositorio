@@ -28,17 +28,31 @@ export const UserPage = () => {
         <>
             <Navbar />
             <div style={{ backgroundColor: 'red' }}>
+                <div>
+                    <DropDown setSelectedDepartment={setDepartmentid} />
+                </div>
                 <div className="container" style={{ backgroundColor: 'royalblue' }}>
-                    <div>
-                        <DropDown setSelectedDepartment={setDepartmentid} />
-                    </div>
-
                     <div
                         className="container"
                         style={{ border: '5px solid black', marginTop: '10px', paddingTop: '10px', backgroundColor: 'purple' }}
                     >
                         <div style={{ backgroundColor: 'yellow', padding: '10px', textAlign: 'center' }}>
                             <a style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>Equipa 1</a>
+                        </div>
+                        <div className="row justify-content-center">
+                            {users
+                                .filter(user => user.id === departmentid || !departmentid)
+                                .map(user => {
+                                    return <Card key={user.id} name={user.name} email={user.email} id={user.id} />;
+                                })}
+                        </div>
+                    </div>
+                    <div
+                        className="container"
+                        style={{ border: '5px solid black', marginTop: '10px', paddingTop: '10px', backgroundColor: 'purple' }}
+                    >
+                        <div style={{ backgroundColor: 'yellow', padding: '10px', textAlign: 'center' }}>
+                            <a style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>Equipa 2</a>
                         </div>
                         <div className="row justify-content-center">
                             {users

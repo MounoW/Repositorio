@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
+import { QuickSellButton } from '../quickSellButton/quickSellButton';
+
 import './card.scss';
 interface CardProps {
     name: string;
@@ -16,6 +18,10 @@ export const Card = ({ name }: CardProps) => {
             />
             <div className="card-body text-center">
                 <h5 className="card-title">{name}</h5>
+            </div>
+            {/* Colocar um if para o botao so aparecer caso o utilizador tenha 2 ou mais iguais */}
+            <div className="text-center">
+                <QuickSellButton />
             </div>
         </div>
     );
