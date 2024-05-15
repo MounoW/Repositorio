@@ -4,11 +4,12 @@ import { QuickSellButton } from '../quickSellButton/quickSellButton';
 
 import './card.scss';
 interface CardProps {
-    name: string;
-    id: string;
-    email: string;
+    nome: string;
+    equipa_id: string;
+    departamento_id: string;
+    raridade: string;
 }
-export const Card = ({ name }: CardProps) => {
+export const Card = ({ nome }: CardProps) => {
     return (
         <div className="card card-spacing card-size">
             <img
@@ -17,7 +18,7 @@ export const Card = ({ name }: CardProps) => {
                 alt="..."
             />
             <div className="card-body text-center">
-                <h5 className="card-title">{name}</h5>
+                <h5 className="card-title">{nome}</h5>
             </div>
             {/* Colocar um if para o botao so aparecer caso o utilizador tenha 2 ou mais iguais */}
             <div className="text-center">

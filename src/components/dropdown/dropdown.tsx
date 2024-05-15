@@ -7,16 +7,16 @@ interface DropDownProps {
 }
 
 export const DropDown = ({ setSelectedDepartment }: DropDownProps) => {
-    function handleCenas(event: React.ChangeEvent<HTMLSelectElement>) {
-        setSelectedDepartment(String(event.target.value));
-    }
+    const handleDepartmentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedDepartment(event.target.value);
+    };
 
     return (
-        <select className="select" aria-label="Default select example" onChange={handleCenas}>
-            <option selected>Todos</option>
-            <option value="1">Departamento A</option>
-            <option value="2">Departamento B</option>
-            <option value="3">Departamento C</option>
+        <select className="select" aria-label="Selecione um departamento" onChange={handleDepartmentChange}>
+            <option value="Todos">Todos</option>
+            <option value="1">Departamento Design</option>
+            <option value="2">Departamento Software</option>
+            <option value="3">Departamento RH</option>
         </select>
     );
 };

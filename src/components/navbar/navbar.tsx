@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
+import './navbar.scss';
+
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export const Navbar = () => {
     return (
-        <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/userPage">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
