@@ -3,12 +3,12 @@
 import './dropdown.scss';
 
 interface DropDownProps {
-    setSelectedDepartment: (id: number) => void;
+    setSelectedDepartment: (id: string) => void;
 }
 
 export const DropDown = ({ setSelectedDepartment }: DropDownProps) => {
     function handleCenas(event: React.ChangeEvent<HTMLSelectElement>) {
-        setSelectedDepartment(Number(event.target.value));
+        setSelectedDepartment(String(event.target.value));
     }
 
     return (

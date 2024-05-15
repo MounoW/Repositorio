@@ -5,7 +5,7 @@ import { QuickSellButton } from '../quickSellButton/quickSellButton';
 import './card.scss';
 interface CardProps {
     name: string;
-    id: number;
+    id: string;
     email: string;
 }
 export const Card = ({ name }: CardProps) => {
