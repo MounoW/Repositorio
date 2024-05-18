@@ -1,9 +1,50 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { User, onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+
+import db, { auth } from '../../firebase';
 
 import './navbar.scss';
 
-/* eslint-disable jsx-a11y/anchor-is-valid */
 export const Navbar = () => {
+    const [credits, setCredits] = useState(0);
+    const [name, setUserName] = useState('');
+    const [numCards, setNumCards] = useState(0);
+
+    useEffect(() => {
+        const fetchUserData = async (user: User | null) => {
+            if (user) {
+                // Buscando créditos do usuário
+                const userDoc = await getDoc(doc(db, 'Utilizadores', user.uid));
+
+                if (userDoc.exists()) {
+                    setCredits(userDoc.data().creditos);
+                }
+
+                // Buscando nome do usuário no Firebase Authentication
+                setUserName(user.displayName || ''); // Nome do usuário se disponível, senão vazio
+
+                // Buscando número de cartas do usuário
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+
+                    if (userData.cartas) {
+                        setNumCards(userData.cartas.length);
+                    }
+                }
+            }
+        };
+
+        const unsubscribe = onAuthStateChanged(auth, user => {
+            fetchUserData(user);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const cardsText = `${numCards}/30`;
+
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">
@@ -41,11 +82,14 @@ export const Navbar = () => {
                     </ul>
                 </div>
                 <ul className="nav justify-content-center">
+                    <li className="nav-item" style={{ marginRight: '40px', fontSize: '20px' }}>
+                        <>Olá {name}!</>
+                    </li>
                     <li className="nav-item">
-                        <img src="images\marketCarIcon.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
+                        <img src="images/marketCarIcon.png" alt="" style={{ width: '35px', height: '30px' }} /> {credits} Créditos
                     </li>
                     <li className="nav-item" style={{ marginLeft: '20px' }}>
-                        <img src="images\bookIcon.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
+                        <img src="images/bookIcon.png" alt="" style={{ width: '45px', height: '30px' }} /> {cardsText}
                     </li>
                 </ul>
             </div>
