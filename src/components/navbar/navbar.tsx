@@ -42,10 +42,10 @@ export const Navbar = () => {
                 </div>
                 <ul className="nav justify-content-center">
                     <li className="nav-item">
-                        <img src="images\market car.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
+                        <img src="images\marketCarIcon.png" alt="" style={{ width: '35px', height: '30px' }} /> 1904 créditos
                     </li>
                     <li className="nav-item" style={{ marginLeft: '20px' }}>
-                        <img src="images\bookPin.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
+                        <img src="images\bookIcon.png" alt="" style={{ width: '45px', height: '30px' }} /> __ /__
                     </li>
                 </ul>
             </div>

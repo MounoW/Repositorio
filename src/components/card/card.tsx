@@ -8,8 +8,9 @@ interface CardProps {
     equipa_id: string;
     department_id: string;
     raridade: string;
+    imagem: string;
 }
-export const Card = ({ nome }: CardProps) => {
+export const Card = ({ nome, raridade }: CardProps) => {
     return (
         <div className="card card-spacing card-size">
             <img
@@ -18,7 +19,8 @@ export const Card = ({ nome }: CardProps) => {
                 alt="..."
             />
             <div className="card-body text-center">
-                <h5 className="card-title">{nome}</h5>
+                <h3 className="card-title">{nome}</h3>
+                <h6 className="card-title">{raridade}</h6>
             </div>
             {/* Colocar um if para o botao so aparecer caso o utilizador tenha 2 ou mais iguais */}
             <div className="text-center">

@@ -14,6 +14,7 @@ interface UserInfo {
     raridade: string;
     equipa_id: string;
     department_id: string;
+    imagem: string;
 }
 
 interface TeamInfo {
@@ -37,7 +38,8 @@ export const UserPage = () => {
                     nome: doc.data().nome,
                     raridade: doc.data().raridade,
                     equipa_id: doc.data().equipa_id,
-                    department_id: doc.data().department_id
+                    department_id: doc.data().department_id,
+                    imagem: doc.data().imagem
                 }));
 
                 setUsers(pessoasList);
@@ -72,19 +74,19 @@ export const UserPage = () => {
     return (
         <>
             <Navbar />
-            <div style={{ backgroundColor: 'red' }}>
+            <div style={{ backgroundColor: '#243a69' }}>
                 <div>
                     <DropDown setSelectedDepartment={setDepartmentId} />
                 </div>
-                <div className="container" style={{ backgroundColor: 'royalblue' }}>
-                    <div
-                        className="container"
-                        style={{ border: '5px solid black', marginTop: '10px', paddingTop: '10px', backgroundColor: 'purple' }}
-                    >
+                <div
+                    className="container"
+                    style={{ backgroundColor: '#f4f4f2', paddingTop: '20px', paddingBottom: '20px', paddingLeft: '20px', paddingRight: '20px' }}
+                >
+                    <div className="container" style={{ border: '5px solid black', paddingTop: '10px', backgroundColor: '#5b88a5' }}>
                         {filteredTeams.map(team => (
                             <div key={team.id}>
-                                <div style={{ backgroundColor: 'yellow', padding: '10px', textAlign: 'center' }}>
-                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>{team.nome}</span>
+                                <div style={{ backgroundColor: '#191013', padding: '10px', textAlign: 'center' }}>
+                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'white' }}>{team.nome}</span>
                                 </div>
                                 <div className="row justify-content-center">
                                     {filteredUsers
@@ -96,6 +98,7 @@ export const UserPage = () => {
                                                 raridade={filteredUser.raridade}
                                                 equipa_id={filteredUser.equipa_id}
                                                 department_id={filteredUser.department_id}
+                                                imagem={filteredUser.imagem}
                                             />
                                         ))}
                                 </div>
