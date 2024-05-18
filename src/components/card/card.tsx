@@ -6,7 +6,7 @@ import './card.scss';
 interface CardProps {
     nome: string;
     equipa_id: string;
-    departamento_id: string;
+    department_id: string;
     raridade: string;
 }
 export const Card = ({ nome }: CardProps) => {

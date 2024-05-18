@@ -13,13 +13,13 @@ interface UserInfo {
     nome: string;
     raridade: string;
     equipa_id: string;
-    departamento_id: string;
+    department_id: string;
 }
 
 interface TeamInfo {
     id: string;
     nome: string;
-    departamento_id: string;
+    department_id: string;
 }
 
 export const UserPage = () => {
@@ -37,7 +37,7 @@ export const UserPage = () => {
                     nome: doc.data().nome,
                     raridade: doc.data().raridade,
                     equipa_id: doc.data().equipa_id,
-                    departamento_id: doc.data().departamento_id
+                    department_id: doc.data().department_id
                 }));
 
                 setUsers(pessoasList);
@@ -53,7 +53,7 @@ export const UserPage = () => {
                 const equipasList = equipasSnapshot.docs.map(doc => ({
                     id: doc.id,
                     nome: doc.data().nome,
-                    departamento_id: doc.data().departamento_id
+                    department_id: doc.data().department_id
                 }));
 
                 setTeams(equipasList);
@@ -66,8 +66,8 @@ export const UserPage = () => {
         fetchTeams();
     }, []);
 
-    const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.departamento_id === departmentId);
-    const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.departamento_id === departmentId);
+    const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.department_id === departmentId);
+    const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.department_id === departmentId);
 
     return (
         <>
@@ -84,7 +84,7 @@ export const UserPage = () => {
                         {filteredTeams.map(team => (
                             <div key={team.id}>
                                 <div style={{ backgroundColor: 'yellow', padding: '10px', textAlign: 'center' }}>
-                                    <a style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>{team.nome}</a>
+                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'black' }}>{team.nome}</span>
                                 </div>
                                 <div className="row justify-content-center">
                                     {filteredUsers
@@ -95,7 +95,7 @@ export const UserPage = () => {
                                                 nome={filteredUser.nome}
                                                 raridade={filteredUser.raridade}
                                                 equipa_id={filteredUser.equipa_id}
-                                                departamento_id={filteredUser.departamento_id}
+                                                department_id={filteredUser.department_id}
                                             />
                                         ))}
                                 </div>
