@@ -3,6 +3,7 @@
 import { QuickSellButton } from '../quickSellButton/quickSellButton';
 
 import './card.scss';
+
 interface CardProps {
     nome: string;
     equipa_id: string;
@@ -13,7 +14,7 @@ interface CardProps {
 
 export const Card = ({ nome, raridade, imagem }: CardProps) => {
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    const getBackgroundColor = (raridade: string) => {
+    const getBorderColor = (raridade: string) => {
         if (raridade === 'Comum') {
             return 'gray';
         } else if (raridade === 'Raro') {
@@ -29,10 +30,10 @@ export const Card = ({ nome, raridade, imagem }: CardProps) => {
         return 'white';
     };
 
-    const backgroundColor = getBackgroundColor(raridade);
+    const borderColor = getBorderColor(raridade);
 
     return (
-        <div className="card card-spacing card-size" style={{ backgroundColor }}>
+        <div className="card card-spacing card-size" style={{ border: `8px solid ${borderColor}` }}>
             <img
                 src={
                     imagem ||
