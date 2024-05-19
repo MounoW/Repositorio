@@ -10,11 +10,34 @@ interface CardProps {
     raridade: string;
     imagem: string;
 }
-export const Card = ({ nome, raridade }: CardProps) => {
+
+export const Card = ({ nome, raridade, imagem }: CardProps) => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const getBackgroundColor = (raridade: string) => {
+        if (raridade === 'Comum') {
+            return 'gray';
+        } else if (raridade === 'Raro') {
+            return 'blue';
+        } else if (raridade === 'Muito Raro') {
+            return 'green';
+        } else if (raridade === 'Épico') {
+            return 'purple';
+        } else if (raridade === 'Lendário') {
+            return 'gold';
+        }
+
+        return 'white';
+    };
+
+    const backgroundColor = getBackgroundColor(raridade);
+
     return (
-        <div className="card card-spacing card-size">
+        <div className="card card-spacing card-size" style={{ backgroundColor }}>
             <img
-                src="https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg"
+                src={
+                    imagem ||
+                    'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
+                }
                 className="card-img-top"
                 alt="..."
             />
