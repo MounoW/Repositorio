@@ -31,27 +31,30 @@ export const MarketPage = () => {
     }, []);
 
     return (
-        <>
-            <Navbar />
-            {isLoading && (
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
+        <div>
+            <div>
+                <Navbar />
+                {isLoading && (
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                )}
+                {!isLoading && (
+                    <ul className="list-group">
+                        {cadernetastickers.map(card => {
+                            return (
+                                <li key={card.sticker} className="list-group-item">
+                                    {card.sticker}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
+
+                <div className="container">
+                    <TableMarket />
                 </div>
-            )}
-            {!isLoading && (
-                <ul className="list-group">
-                    {cadernetastickers.map(card => {
-                        return (
-                            <li key={card.sticker} className="list-group-item">
-                                {card.sticker}
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
-            <div className="container">
-                <TableMarket />
             </div>
-        </>
+        </div>
     );
 };

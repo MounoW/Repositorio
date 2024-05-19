@@ -1,6 +1,38 @@
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+
+import db from '../../firebase';
+
 import './tableMarket.scss';
 
-export const TableMarket = () => {
+interface Pack {
+    id: string;
+    nome: string;
+    preco: number;
+    quantidade: number;
+}
+
+export const TableMarket: React.FC = () => {
+    const [packs, setPacks] = useState<Pack[]>([]);
+
+    useEffect(() => {
+        const fetchPacks = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'Packs'));
+                const packsData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                })) as Pack[]; // Cast the result to Pack[]
+
+                setPacks(packsData);
+            } catch (error) {
+                console.error('Erro ao buscar os dados: ', error);
+            }
+        };
+
+        fetchPacks();
+    }, []);
+
     return (
         <>
             <table className="table table_spacing">
@@ -16,39 +48,19 @@ export const TableMarket = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Pacote Raro</td>
-                        <td>500</td>
-                        <td>5</td>
-                        <td>C(%)R(%)MR(%)E(%)L(%)</td>
-                        <div className="text-center">
-                            <button type="button" className="btn btn-outline-success">
-                                X
-                            </button>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>Pacote Pequeno</td>
-                        <td>50</td>
-                        <td>2</td>
-                        <td>C(%)R(%)MR(%)E(%)L(%)</td>
-                        <div className="text-center">
-                            <button type="button" className="btn btn-outline-success">
-                                X
-                            </button>
-                        </div>
-                    </tr>
-                    <tr>
-                        <td>Mega Pacote</td>
-                        <td>1500</td>
-                        <td>15</td>
-                        <td>C(%)R(%)MR(%)E(%)L(%)</td>
-                        <div className="text-center">
-                            <button type="button" className="btn btn-outline-success">
-                                X
-                            </button>
-                        </div>
-                    </tr>
+                    {packs.map(pack => (
+                        <tr key={pack.id}>
+                            <td>{pack.nome}</td>
+                            <td>{pack.preco}</td>
+                            <td>{pack.quantidade}</td>
+                            <td>C(%)R(%)MR(%)E(%)L(%)</td>
+                            <td className="text-center">
+                                <button type="button" className="btn btn-outline-success">
+                                    Comprar
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
             <div>Legenda: C(Comun), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)</div>
