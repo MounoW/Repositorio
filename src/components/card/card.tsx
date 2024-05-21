@@ -54,21 +54,23 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                 }
             />
             <div className="card-body text-center">
-                <h3 className="card-title">{nome}</h3>
+                <h3 className="card-title" style={{ fontSize: '20px' }}>
+                    {nome}
+                </h3>
                 <h6
                     className="card-title"
                     style={{
                         color: textColor,
                         textShadow:
                             '1px 1px 0 #000, -1px -1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 0 1px 0 #000, -1px 0 0 #000, 0 -1px 0 #000',
-                        fontSize: '25px'
+                        fontSize: '20px'
                     }}
                 >
                     {raridade}
                 </h6>
             </div>
             {showQuickSellButton && (
-                <div className="text-center">
+                <div className="d-flex justify-content-center" style={{ paddingBottom: '15px' }}>
                     <QuickSellButton onQuickSell={() => removeCard(id, raridade)} quantity={numOfRepeatedCards - 1} />
                 </div>
             )}
