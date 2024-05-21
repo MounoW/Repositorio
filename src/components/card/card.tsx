@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-shadow */
 
@@ -13,7 +14,7 @@ interface CardProps {
     imagem: string;
     id: string; // Adiciona o ID da pessoa
     userCards: string[]; // Adiciona a lista de cartas do utilizador
-    removeCard: (cardId: string) => void; // Adiciona a função de remoção de carta
+    removeCard: (cardId: string, raridade: string) => void; // Adiciona a função de remoção de carta com raridade
 }
 
 export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: CardProps) => {
@@ -53,8 +54,6 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                         ? imagem
                         : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
                 }
-                className="card-img-top"
-                alt="..."
             />
             <div className="card-body text-center">
                 <h3 className="card-title">{nome}</h3>
@@ -73,7 +72,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             {showQuickSellButton && (
                 <div className="text-center">
                     {/* Passa a função removeCard para o componente QuickSellButton */}
-                    <QuickSellButton onQuickSell={() => removeCard(id)} />
+                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} />
                 </div>
             )}
         </div>

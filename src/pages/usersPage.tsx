@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
@@ -29,6 +30,7 @@ export const UserPage = () => {
     const [teams, setTeams] = useState<TeamInfo[]>([]);
     const [userCards, setUserCards] = useState<string[]>([]);
     const [departmentId, setDepartmentId] = useState<string>('Todos');
+    const [, setUserCredits] = useState<number>(0); // Adiciona o estado de créditos
 
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
@@ -79,6 +81,7 @@ export const UserPage = () => {
                         const userData = userDoc.data();
 
                         setUserCards(userData.cartas || []);
+                        setUserCredits(userData.creditos || 0); // Adiciona os créditos do usuário
                     }
                 }
             } catch (error) {
@@ -91,8 +94,26 @@ export const UserPage = () => {
         fetchUserCards();
     }, [userId]);
 
-    // Função para remover uma carta do array do usuário
-    const removeCard = async (cardId: string) => {
+    // Função para calcular créditos com base na raridade da carta
+    const calculateCredits = (raridade: string): number => {
+        switch (raridade) {
+            case 'Comum':
+                return 100;
+            case 'Raro':
+                return 200;
+            case 'Muito Raro':
+                return 500;
+            case 'Épico':
+                return 1000;
+            case 'Lendário':
+                return 2500;
+            default:
+                return 0;
+        }
+    };
+
+    // Função para remover uma carta do array do usuário e adicionar créditos
+    const removeCard = async (cardId: string, raridade: string) => {
         try {
             if (userId) {
                 const userDocRef = doc(db, 'Utilizadores', userId);
@@ -106,10 +127,15 @@ export const UserPage = () => {
                         const updatedCards = [...userData.cartas];
 
                         updatedCards.splice(cardIndex, 1); // Remove apenas uma instância da carta
+                        const creditsToAdd = calculateCredits(raridade);
+                        const updatedCredits = userData.creditos + creditsToAdd;
+
                         // Atualiza o documento no Firestore
-                        await updateDoc(userDocRef, { cartas: updatedCards });
+                        await updateDoc(userDocRef, { cartas: updatedCards, creditos: updatedCredits });
+
                         // Atualiza o estado local
                         setUserCards(updatedCards);
+                        setUserCredits(updatedCredits);
                     }
                 }
             }
