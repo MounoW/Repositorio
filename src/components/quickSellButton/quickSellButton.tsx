@@ -1,10 +1,12 @@
-import './quickSellButton.scss';
+interface QuickSellButtonProps {
+    onQuickSell: () => void; // Adiciona o prop onQuickSell
+}
 
-export const QuickSellButton = () => {
+export const QuickSellButton = ({ onQuickSell }: QuickSellButtonProps) => {
     return (
         <div>
-            <button type="button" className="quick-sell-format">
-                {/* temos de fazer o count consoante o numero de cartas iguais que o utilizador tem  em vez do x4 */}
+            {/* Chama a função onQuickSell quando o botão for clicado */}
+            <button type="button" className="quick-sell-format" onClick={onQuickSell}>
                 Venda Rápida x4
             </button>
         </div>

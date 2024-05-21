@@ -13,9 +13,10 @@ interface CardProps {
     imagem: string;
     id: string; // Adiciona o ID da pessoa
     userCards: string[]; // Adiciona a lista de cartas do utilizador
+    removeCard: (cardId: string) => void; // Adiciona a função de remoção de carta
 }
 
-export const Card = ({ nome, raridade, imagem, id, userCards }: CardProps) => {
+export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: CardProps) => {
     const getColors = (raridade: string) => {
         switch (raridade) {
             case 'Comum':
@@ -69,10 +70,10 @@ export const Card = ({ nome, raridade, imagem, id, userCards }: CardProps) => {
                     {raridade}
                 </h6>
             </div>
-            {/* Renderiza o botão QuickSellButton apenas se showQuickSellButton for verdadeiro */}
             {showQuickSellButton && (
                 <div className="text-center">
-                    <QuickSellButton />
+                    {/* Passa a função removeCard para o componente QuickSellButton */}
+                    <QuickSellButton onQuickSell={() => removeCard(id)} />
                 </div>
             )}
         </div>

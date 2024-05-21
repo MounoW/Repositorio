@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 import { Card } from '../components/card/card';
@@ -91,6 +91,33 @@ export const UserPage = () => {
         fetchUserCards();
     }, [userId]);
 
+    // Função para remover uma carta do array do usuário
+    const removeCard = async (cardId: string) => {
+        try {
+            if (userId) {
+                const userDocRef = doc(db, 'Utilizadores', userId);
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    const userData = userDoc.data();
+                    const cardIndex = userData.cartas.findIndex((card: string) => card === cardId);
+
+                    if (cardIndex !== -1) {
+                        const updatedCards = [...userData.cartas];
+
+                        updatedCards.splice(cardIndex, 1); // Remove apenas uma instância da carta
+                        // Atualiza o documento no Firestore
+                        await updateDoc(userDocRef, { cartas: updatedCards });
+                        // Atualiza o estado local
+                        setUserCards(updatedCards);
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao remover carta do utilizador: ', error);
+        }
+    };
+
     const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.department_id === departmentId);
     const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.department_id === departmentId);
 
@@ -122,8 +149,10 @@ export const UserPage = () => {
                                                 equipa_id={filteredUser.equipa_id}
                                                 department_id={filteredUser.department_id}
                                                 imagem={filteredUser.imagem}
-                                                id={filteredUser.id} // Adiciona o ID da pessoa
-                                                userCards={userCards} // Passa as cartas do utilizador
+                                                id={filteredUser.id}
+                                                userCards={userCards}
+                                                // Passa a função removeCard como prop
+                                                removeCard={removeCard}
                                             />
                                         ))}
                                 </div>
