@@ -30,7 +30,7 @@ export const UserPage = () => {
     const [teams, setTeams] = useState<TeamInfo[]>([]);
     const [userCards, setUserCards] = useState<string[]>([]);
     const [departmentId, setDepartmentId] = useState<string>('Todos');
-    const [, setUserCredits] = useState<number>(0); // Adiciona o estado de créditos
+    const [, setUserCredits] = useState<number>(0);
 
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
@@ -81,7 +81,7 @@ export const UserPage = () => {
                         const userData = userDoc.data();
 
                         setUserCards(userData.cartas || []);
-                        setUserCredits(userData.creditos || 0); // Adiciona os créditos do usuário
+                        setUserCredits(userData.creditos || 0);
                     }
                 }
             } catch (error) {
@@ -94,7 +94,6 @@ export const UserPage = () => {
         fetchUserCards();
     }, [userId]);
 
-    // Função para calcular créditos com base na raridade da carta
     const calculateCredits = (raridade: string): number => {
         switch (raridade) {
             case 'Comum':
@@ -112,7 +111,6 @@ export const UserPage = () => {
         }
     };
 
-    // Função para remover uma carta do array do usuário e adicionar créditos
     const removeCard = async (cardId: string, raridade: string) => {
         try {
             if (userId) {
@@ -126,14 +124,12 @@ export const UserPage = () => {
                     if (cardIndex !== -1) {
                         const updatedCards = [...userData.cartas];
 
-                        updatedCards.splice(cardIndex, 1); // Remove apenas uma instância da carta
+                        updatedCards.splice(cardIndex, 1);
                         const creditsToAdd = calculateCredits(raridade);
                         const updatedCredits = userData.creditos + creditsToAdd;
 
-                        // Atualiza o documento no Firestore
                         await updateDoc(userDocRef, { cartas: updatedCards, creditos: updatedCredits });
 
-                        // Atualiza o estado local
                         setUserCards(updatedCards);
                         setUserCredits(updatedCredits);
                     }
@@ -177,7 +173,6 @@ export const UserPage = () => {
                                                 imagem={filteredUser.imagem}
                                                 id={filteredUser.id}
                                                 userCards={userCards}
-                                                // Passa a função removeCard como prop
                                                 removeCard={removeCard}
                                             />
                                         ))}

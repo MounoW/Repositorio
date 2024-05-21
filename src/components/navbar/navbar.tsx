@@ -15,22 +15,18 @@ export const Navbar = () => {
     useEffect(() => {
         const fetchUserData = async (user: User | null) => {
             if (user) {
-                // Buscando créditos do usuário
                 const userDoc = await getDoc(doc(db, 'Utilizadores', user.uid));
 
                 if (userDoc.exists()) {
                     setCredits(userDoc.data().creditos);
                 }
 
-                // Buscando nome do usuário no Firebase Authentication
-                setUserName(user.displayName || ''); // Nome do usuário se disponível, senão vazio
+                setUserName(user.displayName || '');
 
-                // Buscando número de cartas únicas do usuário
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
 
                     if (userData.cartas) {
-                        // Filtrar cartas únicas do usuário
                         const uniqueCards = [...new Set(userData.cartas)];
 
                         setNumCards(uniqueCards.length);

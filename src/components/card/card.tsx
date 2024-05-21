@@ -12,9 +12,9 @@ interface CardProps {
     department_id: string;
     raridade: string;
     imagem: string;
-    id: string; // Adiciona o ID da pessoa
-    userCards: string[]; // Adiciona a lista de cartas do utilizador
-    removeCard: (cardId: string, raridade: string) => void; // Adiciona a função de remoção de carta com raridade
+    id: string;
+    userCards: string[];
+    removeCard: (cardId: string, raridade: string) => void;
 }
 
 export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: CardProps) => {
@@ -37,20 +37,18 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
 
     const { borderColor, textColor } = getColors(raridade);
 
-    // Verifica se o utilizador possui a carta
-    const possuiCarta = userCards.includes(id);
+    const haveCard = userCards.includes(id);
 
-    // Conta o número de ocorrências do ID da carta na lista de cartas do utilizador
-    const numOccurrences = userCards.filter(cardId => cardId === id).length;
-    // Verifica se o botão QuickSellButton deve ser exibido
-    const showQuickSellButton = numOccurrences >= 2;
+    const numOfRepeatedCards = userCards.filter(cardId => cardId === id).length;
+
+    const showQuickSellButton = numOfRepeatedCards >= 2;
 
     return (
         <div className="card card-spacing card-size" style={{ border: `8px solid ${borderColor}` }}>
             <img
                 style={{ paddingTop: '20px' }}
                 src={
-                    possuiCarta
+                    haveCard
                         ? imagem
                         : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
                 }
@@ -71,7 +69,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             </div>
             {showQuickSellButton && (
                 <div className="text-center">
-                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} quantity={numOccurrences - 1} />
+                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} quantity={numOfRepeatedCards - 1} />
                 </div>
             )}
         </div>
