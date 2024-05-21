@@ -71,8 +71,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             </div>
             {showQuickSellButton && (
                 <div className="text-center">
-                    {/* Passa a função removeCard para o componente QuickSellButton */}
-                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} />
+                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} quantity={numOccurrences - 1} />
                 </div>
             )}
         </div>
