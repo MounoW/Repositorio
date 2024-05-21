@@ -25,12 +25,15 @@ export const Navbar = () => {
                 // Buscando nome do usuário no Firebase Authentication
                 setUserName(user.displayName || ''); // Nome do usuário se disponível, senão vazio
 
-                // Buscando número de cartas do usuário
+                // Buscando número de cartas únicas do usuário
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
 
                     if (userData.cartas) {
-                        setNumCards(userData.cartas.length);
+                        // Filtrar cartas únicas do usuário
+                        const uniqueCards = [...new Set(userData.cartas)];
+
+                        setNumCards(uniqueCards.length);
                     }
                 }
             }

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 import { Card } from '../components/card/card';
-//import { DropDown } from '../components/dropdown/dropdown';
 import { Navbar } from '../components/navbar/navbar';
 import { DropDown } from '../components/dropdown/dropdown';
 import db from '../firebase';
@@ -26,7 +27,11 @@ interface TeamInfo {
 export const UserPage = () => {
     const [users, setUsers] = useState<UserInfo[]>([]);
     const [teams, setTeams] = useState<TeamInfo[]>([]);
+    const [userCards, setUserCards] = useState<string[]>([]);
     const [departmentId, setDepartmentId] = useState<string>('Todos');
+
+    const auth = getAuth();
+    const userId = auth.currentUser?.uid;
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -64,9 +69,27 @@ export const UserPage = () => {
             }
         };
 
+        const fetchUserCards = async () => {
+            try {
+                if (userId) {
+                    const userDocRef = doc(db, 'Utilizadores', userId);
+                    const userDoc = await getDoc(userDocRef);
+
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+
+                        setUserCards(userData.cartas || []);
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao buscar cartas do utilizador: ', error);
+            }
+        };
+
         fetchUsers();
         fetchTeams();
-    }, []);
+        fetchUserCards();
+    }, [userId]);
 
     const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.department_id === departmentId);
     const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.department_id === departmentId);
@@ -99,6 +122,8 @@ export const UserPage = () => {
                                                 equipa_id={filteredUser.equipa_id}
                                                 department_id={filteredUser.department_id}
                                                 imagem={filteredUser.imagem}
+                                                id={filteredUser.id} // Adiciona o ID da pessoa
+                                                userCards={userCards} // Passa as cartas do utilizador
                                             />
                                         ))}
                                 </div>

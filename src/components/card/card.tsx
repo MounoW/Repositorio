@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
-import { QuickSellButton } from '../quickSellButton/quickSellButton';
+/* eslint-disable import/order */
+/* eslint-disable @typescript-eslint/no-shadow */
 
 import './card.scss';
+
+import { QuickSellButton } from '../quickSellButton/quickSellButton';
 
 interface CardProps {
     nome: string;
@@ -10,10 +11,11 @@ interface CardProps {
     department_id: string;
     raridade: string;
     imagem: string;
+    id: string; // Adiciona o ID da pessoa
+    userCards: string[]; // Adiciona a lista de cartas do utilizador
 }
 
-export const Card = ({ nome, raridade, imagem }: CardProps) => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
+export const Card = ({ nome, raridade, imagem, id, userCards }: CardProps) => {
     const getColors = (raridade: string) => {
         switch (raridade) {
             case 'Comum':
@@ -33,13 +35,22 @@ export const Card = ({ nome, raridade, imagem }: CardProps) => {
 
     const { borderColor, textColor } = getColors(raridade);
 
+    // Verifica se o utilizador possui a carta
+    const possuiCarta = userCards.includes(id);
+
+    // Conta o número de ocorrências do ID da carta na lista de cartas do utilizador
+    const numOccurrences = userCards.filter(cardId => cardId === id).length;
+    // Verifica se o botão QuickSellButton deve ser exibido
+    const showQuickSellButton = numOccurrences >= 2;
+
     return (
         <div className="card card-spacing card-size" style={{ border: `8px solid ${borderColor}` }}>
             <img
                 style={{ paddingTop: '20px' }}
                 src={
-                    imagem ||
-                    'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
+                    possuiCarta
+                        ? imagem
+                        : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
                 }
                 className="card-img-top"
                 alt="..."
@@ -58,10 +69,12 @@ export const Card = ({ nome, raridade, imagem }: CardProps) => {
                     {raridade}
                 </h6>
             </div>
-            {/* Colocar um if para o botao so aparecer caso o utilizador tenha 2 ou mais iguais */}
-            <div className="text-center">
-                <QuickSellButton />
-            </div>
+            {/* Renderiza o botão QuickSellButton apenas se showQuickSellButton for verdadeiro */}
+            {showQuickSellButton && (
+                <div className="text-center">
+                    <QuickSellButton />
+                </div>
+            )}
         </div>
     );
 };
