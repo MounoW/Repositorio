@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 import db, { auth } from '../../firebase';
 
@@ -13,33 +13,40 @@ export const Navbar = () => {
     const [numCards, setNumCards] = useState(0);
 
     useEffect(() => {
-        const fetchUserData = async (user: User | null) => {
+        const unsubscribeFromAuth = onAuthStateChanged(auth, user => {
             if (user) {
-                const userDoc = await getDoc(doc(db, 'Utilizadores', user.uid));
-
-                if (userDoc.exists()) {
-                    setCredits(userDoc.data().creditos);
-                }
-
                 setUserName(user.displayName || '');
+                const userDocRef = doc(db, 'Utilizadores', user.uid);
 
-                if (userDoc.exists()) {
-                    const userData = userDoc.data();
+                const unsubscribeFromDoc = onSnapshot(userDocRef, docSnapshot => {
+                    if (docSnapshot.exists()) {
+                        const userData = docSnapshot.data();
 
-                    if (userData.cartas) {
-                        const uniqueCards = [...new Set(userData.cartas)];
+                        setCredits(userData.creditos || 0);
 
-                        setNumCards(uniqueCards.length);
+                        if (userData.cartas) {
+                            const uniqueCards = [...new Set(userData.cartas)];
+
+                            setNumCards(uniqueCards.length);
+                        } else {
+                            setNumCards(0);
+                        }
                     }
-                }
-            }
-        };
+                });
 
-        const unsubscribe = onAuthStateChanged(auth, user => {
-            fetchUserData(user);
+                return () => {
+                    unsubscribeFromDoc();
+                };
+            } else {
+                setCredits(0);
+                setNumCards(0);
+                setUserName('');
+            }
         });
 
-        return () => unsubscribe();
+        return () => {
+            unsubscribeFromAuth();
+        };
     }, []);
 
     const cardsText = `${numCards}/30`;

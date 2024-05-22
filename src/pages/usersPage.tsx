@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+//@ts-nocheck
 import { useEffect, useState } from 'react';
-import { collection, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 import { Card } from '../components/card/card';
@@ -72,21 +73,39 @@ export const UserPage = () => {
         };
 
         const fetchUserCards = async () => {
-            try {
-                if (userId) {
-                    const userDocRef = doc(db, 'Utilizadores', userId);
-                    const userDoc = await getDoc(userDocRef);
+            // try {
+            //     if (userId) {
+            //         const userDocRef = doc(db, 'Utilizadores', userId);
+            //         const userDoc = await getDoc(userDocRef);
 
-                    if (userDoc.exists()) {
-                        const userData = userDoc.data();
+            //         if (userDoc.exists()) {
+            //             const userData = userDoc.data();
 
-                        setUserCards(userData.cartas || []);
-                        setUserCredits(userData.creditos || 0);
+            //             setUserCards(userData.cartas || []);
+            //             console.log(userData.cartas);
+            //             setUserCredits(userData.creditos || 0);
+            //         }
+            //     }
+            // } catch (error) {
+            //     console.error('Erro ao buscar cartas do utilizador: ', error);
+            // }
+            const collectionRef = collection(db, 'Utilizadores');
+            const unsub = onSnapshot(collectionRef, querySnapshot => {
+                const items = [];
+
+                querySnapshot.forEach(doc => {
+                    if (doc.id === userId) {
+                        items.push(doc.data());
                     }
-                }
-            } catch (error) {
-                console.error('Erro ao buscar cartas do utilizador: ', error);
-            }
+                });
+                setUserCards(items[0].cartas);
+                setUserCredits(items[0].creditos);
+                // console.log(items[0]);
+            });
+
+            return () => {
+                unsub();
+            };
         };
 
         fetchUsers();
