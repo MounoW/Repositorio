@@ -2,6 +2,7 @@
 /* eslint-disable import/order */
 /* eslint-disable jsx-a11y/alt-text */
 import './card.scss';
+import '../quickSellButton/quickSellButton.scss';
 
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
@@ -59,7 +60,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
     };
 
     return (
-        <div className="card card-spacing card-size" style={{ border: `8px solid ${borderColor}` }}>
+        <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
             <img
                 style={{ paddingTop: '20px' }}
                 src={
@@ -69,16 +70,15 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                 }
             />
             <div className="card-body text-center">
-                <h3 className="card-title" style={{ fontSize: '20px' }}>
+                <h3 className="card-title" style={{ fontSize: '20px', fontFamily: 'Arial', paddingBottom: '5px' }}>
                     {nome}
                 </h3>
                 <h6
                     className="card-title"
                     style={{
                         color: textColor,
-                        textShadow:
-                            '1px 1px 0 #000, -1px -1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 0 1px 0 #000, -1px 0 0 #000, 0 -1px 0 #000',
-                        fontSize: '20px'
+                        fontSize: '15px',
+                        fontFamily: 'Arial'
                     }}
                 >
                     {raridade}

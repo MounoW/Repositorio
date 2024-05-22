@@ -146,6 +146,8 @@ export const UserPage = () => {
     const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.department_id === departmentId);
     const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.department_id === departmentId);
 
+    const rarityOrder = ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário'];
+
     return (
         <>
             <Navbar />
@@ -166,6 +168,7 @@ export const UserPage = () => {
                                 <div className="row justify-content-center">
                                     {filteredUsers
                                         .filter(user => user.equipa_id === team.id)
+                                        .sort((a, b) => rarityOrder.indexOf(a.raridade) - rarityOrder.indexOf(b.raridade))
                                         .map(filteredUser => (
                                             <Card
                                                 key={filteredUser.id}
