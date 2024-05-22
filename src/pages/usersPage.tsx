@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -73,22 +74,6 @@ export const UserPage = () => {
         };
 
         const fetchUserCards = async () => {
-            // try {
-            //     if (userId) {
-            //         const userDocRef = doc(db, 'Utilizadores', userId);
-            //         const userDoc = await getDoc(userDocRef);
-
-            //         if (userDoc.exists()) {
-            //             const userData = userDoc.data();
-
-            //             setUserCards(userData.cartas || []);
-            //             console.log(userData.cartas);
-            //             setUserCredits(userData.creditos || 0);
-            //         }
-            //     }
-            // } catch (error) {
-            //     console.error('Erro ao buscar cartas do utilizador: ', error);
-            // }
             const collectionRef = collection(db, 'Utilizadores');
             const unsub = onSnapshot(collectionRef, querySnapshot => {
                 const items = [];
@@ -100,7 +85,6 @@ export const UserPage = () => {
                 });
                 setUserCards(items[0].cartas);
                 setUserCredits(items[0].creditos);
-                // console.log(items[0]);
             });
 
             return () => {

@@ -1,8 +1,10 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable import/order */
 /* eslint-disable @typescript-eslint/no-shadow */
-
+/* eslint-disable import/order */
+/* eslint-disable jsx-a11y/alt-text */
 import './card.scss';
+
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 import { QuickSellButton } from '../quickSellButton/quickSellButton';
 
@@ -43,6 +45,19 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
 
     const showQuickSellButton = numOfRepeatedCards >= 2;
 
+    const handleRemoveCard = () => {
+        removeCard(id, raridade);
+        // Exibir notificação de sucesso ao remover a carta
+        Toastify({
+            text: 'Carta vendida com sucesso!',
+            duration: 3000, // Duração em milissegundos
+            // Mostrar botão de fechar
+            gravity: 'top', // Posição: "top" ou "bottom"
+            position: 'center', // Posição: "left", "center" ou "right"
+            backgroundColor: '#4CAF50' // Cor de fundo verde indicando sucesso
+        }).showToast();
+    };
+
     return (
         <div className="card card-spacing card-size" style={{ border: `8px solid ${borderColor}` }}>
             <img
@@ -71,7 +86,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             </div>
             {showQuickSellButton && (
                 <div className="d-flex justify-content-center" style={{ paddingBottom: '15px' }}>
-                    <QuickSellButton onQuickSell={() => removeCard(id, raridade)} quantity={numOfRepeatedCards - 1} />
+                    <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
                 </div>
             )}
         </div>
