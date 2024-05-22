@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
 /* eslint-disable jsx-a11y/alt-text */
@@ -8,6 +9,7 @@ import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
 import { QuickSellButton } from '../quickSellButton/quickSellButton';
+import { calculateCredits } from './function';
 
 interface CardProps {
     nome: string;
@@ -58,6 +60,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             backgroundColor: '#4CAF50' // Cor de fundo verde indicando sucesso
         }).showToast();
     };
+    const creditosPorCarta = calculateCredits(raridade);
 
     return (
         <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
@@ -85,9 +88,14 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                 </h6>
             </div>
             {showQuickSellButton && (
-                <div className="d-flex justify-content-center" style={{ paddingBottom: '15px' }}>
-                    <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
-                </div>
+                <>
+                    <div className="d-flex justify-content-center">
+                        <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
+                    </div>
+                    <div className="d-flex justify-content-center" style={{ paddingBottom: '15px', fontSize: '14px' }}>
+                        Preço por carta: {creditosPorCarta} créditos
+                    </div>
+                </>
             )}
         </div>
     );

@@ -54,7 +54,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/userPage">
+                <a className="navbar-bnd" href="/userPage">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button

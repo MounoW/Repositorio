@@ -59,12 +59,21 @@ export const UserPage = () => {
 
         const fetchTeams = async () => {
             try {
+                const departamentosCollection = collection(db, 'Departamento');
+                const departamentosSnapshot = await getDocs(departamentosCollection);
+                const departamentosMap = departamentosSnapshot.docs.reduce((map, doc) => {
+                    map[doc.id] = doc.data().nome;
+
+                    return map;
+                }, {});
+
                 const equipasCollection = collection(db, 'Equipas');
                 const equipasSnapshot = await getDocs(equipasCollection);
                 const equipasList = equipasSnapshot.docs.map(doc => ({
                     id: doc.id,
                     nome: doc.data().nome,
-                    department_id: doc.data().department_id
+                    department_id: doc.data().department_id,
+                    department_nome: departamentosMap[doc.data().department_id] // Mapeia o nome do departamento
                 }));
 
                 setTeams(equipasList);
@@ -163,7 +172,9 @@ export const UserPage = () => {
                         {filteredTeams.map(team => (
                             <div key={team.id}>
                                 <div style={{ backgroundColor: '#191013', padding: '10px', textAlign: 'center' }}>
-                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'white' }}>{team.nome}</span>
+                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'white' }}>
+                                        {team.department_nome} - {team.nome}
+                                    </span>
                                 </div>
                                 <div className="row justify-content-center">
                                     {filteredUsers
