@@ -111,13 +111,13 @@ export const UserPage = () => {
             case 'Comum':
                 return 100;
             case 'Raro':
-                return 200;
-            case 'Muito Raro':
                 return 500;
-            case 'Épico':
+            case 'Muito Raro':
                 return 1000;
+            case 'Épico':
+                return 2000;
             case 'Lendário':
-                return 2500;
+                return 5000;
             default:
                 return 0;
         }
