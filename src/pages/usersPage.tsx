@@ -33,12 +33,14 @@ export const UserPage = () => {
     const [teams, setTeams] = useState<TeamInfo[]>([]);
     const [userCards, setUserCards] = useState<string[]>([]);
     const [departmentId, setDepartmentId] = useState<string>('Todos');
-    const [, setUserCredits] = useState<number>(0);
+    const [userCredits, setUserCredits] = useState<number>(0);
 
     const auth = getAuth();
     const userId = auth.currentUser?.uid;
 
     useEffect(() => {
+        if (!userId) return;
+
         const fetchUsers = async () => {
             try {
                 const pessoasCollection = collection(db, 'Pessoas');
@@ -93,8 +95,11 @@ export const UserPage = () => {
                         items.push(doc.data());
                     }
                 });
-                setUserCards(items[0].cartas);
-                setUserCredits(items[0].creditos);
+
+                if (items.length > 0) {
+                    setUserCards(items[0].cartas || []);
+                    setUserCredits(items[0].creditos || 0);
+                }
             });
 
             return () => {
@@ -138,6 +143,7 @@ export const UserPage = () => {
                         const updatedCards = [...userData.cartas];
 
                         updatedCards.splice(cardIndex, 1);
+
                         const creditsToAdd = calculateCredits(raridade);
                         const updatedCredits = userData.creditos + creditsToAdd;
 
