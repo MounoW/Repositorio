@@ -37,7 +37,7 @@ export const LoginPage = () => {
                         name: user.displayName,
                         email: user.email,
                         cartas: [],
-                        creditos: 50000
+                        creditos: 60000
                     });
                 }
 
