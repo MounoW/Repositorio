@@ -1,4 +1,27 @@
 .table_spacing {
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 30px;
-    margin-bottom: 30px;
+}
+
+.table_spacing th,
+.table_spacing td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Defina a largura desejada para a coluna "Quantidade de Cartas" */
+.table_spacing .quantity-column {
+    width: 200px;
+    /* Por exemplo, ajuste conforme necessário */
+}
+
+.table_spacing th:not(:last-child),
+.table_spacing td:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.table_spacing th:first-child,
+.table_spacing td:first-child {
+    border-left: 1px solid #ddd;
 }
