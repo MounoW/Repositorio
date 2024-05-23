@@ -25,6 +25,7 @@ interface TeamInfo {
     id: string;
     nome: string;
     department_id: string;
+    department_nome: string;
 }
 
 export const UserPage = () => {
@@ -173,7 +174,7 @@ export const UserPage = () => {
                             <div key={team.id}>
                                 <div style={{ backgroundColor: '#191013', padding: '10px', textAlign: 'center' }}>
                                     <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'white' }}>
-                                        {team.department_nome} - {team.nome}
+                                        {departmentId === 'Todos' ? `${team.department_nome} - ${team.nome}` : team.nome}
                                     </span>
                                 </div>
                                 <div className="row justify-content-center">
