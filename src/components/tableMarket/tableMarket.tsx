@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-console */
+
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, getDoc, query, where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 import db from '../../firebase';
@@ -59,6 +60,45 @@ export const TableMarket: React.FC = () => {
         fetchUserCredits();
     }, []);
 
+    const gerarRaridade = (): string => {
+        const randomNum = Math.floor(Math.random() * 101); // Gera um número de 0 a 100
+
+        if (randomNum <= 60) return 'Comum';
+        if (randomNum <= 75) return 'Raro';
+        if (randomNum <= 83) return 'Muito Raro';
+        if (randomNum <= 92) return 'Épico';
+
+        return 'Lendário';
+    };
+    const buscarCartasPorRaridade = async (raridade: string): Promise<string[]> => {
+        try {
+            const pessoasCollection = collection(db, 'Pessoas');
+            const q = query(pessoasCollection, where('raridade', '==', raridade));
+            const cartasSnapshot = await getDocs(q);
+
+            return cartasSnapshot.docs.map(doc => doc.id); // Supondo que o ID do documento é a identificação da pessoa/carta
+        } catch (error) {
+            console.error(`Erro ao buscar cartas de raridade ${raridade}:`, error);
+
+            return [];
+        }
+    };
+
+    const buscarTodasCartasPorRaridade = async (): Promise<Record<string, string[]>> => {
+        const raridades = ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário'];
+        const todasCartas: Record<string, string[]> = {};
+
+        const fetchPromises = raridades.map(async raridade => {
+            const cartas = await buscarCartasPorRaridade(raridade);
+
+            todasCartas[raridade] = cartas;
+        });
+
+        await Promise.all(fetchPromises);
+
+        return todasCartas;
+    };
+
     const handleBuy = async (pack: Pack) => {
         const user = auth.currentUser;
 
@@ -73,25 +113,33 @@ export const TableMarket: React.FC = () => {
 
                     if (userCredits >= pack.preco) {
                         const currentCartas: string[] = userDocSnap.data().cartas || [];
+                        const newCartasSet = new Set<string>();
 
-                        const newCartas: string[] = [];
+                        // Buscar todas as cartas por raridade uma vez
+                        const todasCartasPorRaridade = await buscarTodasCartasPorRaridade();
 
-                        for (let i = 0; i < pack.quantidade; i++) {
-                            // Gera um número aleatório de 001 a 030
-                            const randomNum = Math.floor(Math.random() * 30) + 1;
-                            const personString = `Pessoa ${String(randomNum).padStart(3, '0')}`;
+                        while (newCartasSet.size < pack.quantidade) {
+                            const raridade = gerarRaridade();
+                            const cartasDaRaridade = todasCartasPorRaridade[raridade];
 
-                            newCartas.push(personString);
+                            if (cartasDaRaridade.length > 0) {
+                                const cartaAleatoria = cartasDaRaridade[Math.floor(Math.random() * cartasDaRaridade.length)];
+
+                                newCartasSet.add(cartaAleatoria);
+                            } else {
+                                console.error(`Nenhuma carta encontrada para a raridade ${raridade}`);
+                            }
                         }
 
-                        // Adiciona as novas cartas ao array existente
+                        const newCartas = Array.from(newCartasSet);
                         const updatedCartas = currentCartas.concat(newCartas);
 
-                        // Atualiza o documento do usuário com o novo array de cartas
+                        // Atualizar o documento do usuário apenas uma vez
                         await updateDoc(userDocRef, {
                             cartas: updatedCartas,
-                            creditos: userCredits - pack.preco // Deduz o preço do pacote dos créditos do usuário
+                            creditos: userCredits - pack.preco
                         });
+
                         console.log('Cartas adicionadas com sucesso:', newCartas);
                     } else {
                         console.error('Créditos insuficientes para comprar o pacote.');
@@ -106,7 +154,7 @@ export const TableMarket: React.FC = () => {
     };
 
     return (
-        <>
+        <div className="market-page">
             <table className="table table_spacing">
                 <thead>
                     <tr>
@@ -140,6 +188,6 @@ export const TableMarket: React.FC = () => {
                 </tbody>
             </table>
             <div>Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)</div>
-        </>
+        </div>
     );
 };
