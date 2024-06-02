@@ -80,11 +80,6 @@ export const Navbar = () => {
                                 Mercado
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/trades">
-                                Trocas
-                            </Link>
-                        </li>
                     </ul>
                 </div>
                 <ul className="nav justify-content-center">

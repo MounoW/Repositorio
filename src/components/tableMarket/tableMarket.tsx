@@ -16,6 +16,13 @@ interface Pack {
     nome: string;
     preco: number;
     quantidade: number;
+    percentagem: {
+        Comum: number;
+        Raro: number;
+        MuitoRaro: number;
+        Epico: number;
+        Lendario: number;
+    };
 }
 
 export const TableMarket: React.FC = () => {
@@ -60,16 +67,27 @@ export const TableMarket: React.FC = () => {
         fetchUserCredits();
     }, []);
 
-    const gerarRaridade = (): string => {
-        const randomNum = Math.floor(Math.random() * 101); // Gera um número de 0 a 100
+    function randoIntFromInterval(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 
-        if (randomNum <= 60) return 'Comum';
-        if (randomNum <= 75) return 'Raro';
-        if (randomNum <= 83) return 'Muito Raro';
-        if (randomNum <= 92) return 'Épico';
+    const gerarRaridade = (percentagens: { [key: string]: number }): string => {
+        const randomNum = randoIntFromInterval(1, 100);
+        let cumulativeProbability = 0;
 
-        return 'Lendário';
+        for (const raridade of ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário']) {
+            cumulativeProbability += percentagens[raridade] || 0;
+
+            if (randomNum <= cumulativeProbability) {
+                return raridade;
+            }
+        }
+
+        console.error('Probabilidades não somam 100:', percentagens);
+
+        return 'Lendário'; // Fallback, should not reach here if percentages sum to 100
     };
+
     const buscarCartasPorRaridade = async (raridade: string): Promise<string[]> => {
         try {
             const pessoasCollection = collection(db, 'Pessoas');
@@ -119,7 +137,7 @@ export const TableMarket: React.FC = () => {
                         const todasCartasPorRaridade = await buscarTodasCartasPorRaridade();
 
                         while (newCartasSet.size < pack.quantidade) {
-                            const raridade = gerarRaridade();
+                            const raridade = gerarRaridade(pack.percentagem);
                             const cartasDaRaridade = todasCartasPorRaridade[raridade];
 
                             if (cartasDaRaridade.length > 0) {
@@ -154,8 +172,8 @@ export const TableMarket: React.FC = () => {
     };
 
     return (
-        <div className="market-page">
-            <table className="table table_spacing">
+        <div>
+            <table className="table table_spacing table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Pacote</th>
@@ -187,7 +205,7 @@ export const TableMarket: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-            <div>Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)</div>
+            <div style={{ color: 'white' }}>Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)</div>
         </div>
     );
 };
