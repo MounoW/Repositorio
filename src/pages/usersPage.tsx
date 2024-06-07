@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable import/order */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -6,6 +8,7 @@
 import { useEffect, useState } from 'react';
 import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import './usersPage.scss';
 
 import { Card } from '../components/card/card';
 import { Navbar } from '../components/navbar/navbar';
@@ -179,11 +182,11 @@ export const UserPage = () => {
                         {filteredTeams.map(team => (
                             <div key={team.id}>
                                 <div style={{ backgroundColor: '#191013', padding: '10px', textAlign: 'center' }}>
-                                    <span style={{ fontSize: '30px', fontWeight: 'bold', color: 'white' }}>
+                                    <span className="textDepartment" style={{ fontWeight: 'bold', color: 'white' }}>
                                         {departmentId === 'Todos' ? `${team.department_nome} - ${team.nome}` : team.nome}
                                     </span>
                                 </div>
-                                <div className="row justify-content-center">
+                                <div className="row justify-content-center cardFontSize">
                                     {filteredUsers
                                         .filter(user => user.equipa_id === team.id)
                                         .sort((a, b) => rarityOrder.indexOf(a.raridade) - rarityOrder.indexOf(b.raridade))

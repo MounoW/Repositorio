@@ -65,23 +65,19 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
     return (
         <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
             <img
-                style={{ paddingTop: '20px' }}
+                style={{ paddingTop: '10px' }}
                 src={
                     haveCard
                         ? imagem
                         : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
                 }
             />
-            <div className="card-body text-center">
-                <h3 className="card-title" style={{ fontSize: '20px', fontFamily: 'Arial', paddingBottom: '5px' }}>
-                    {nome}
-                </h3>
+            <div className="card-body text-center" style={{ paddingBottom: '0px' }}>
+                <h3 className="card-title cardNameFontSize">{nome}</h3>
                 <h6
-                    className="card-title"
+                    className="card-title cardRarityFontSize"
                     style={{
-                        color: textColor,
-                        fontSize: '15px',
-                        fontFamily: 'Arial'
+                        color: textColor
                     }}
                 >
                     {raridade}
@@ -92,9 +88,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                     <div className="d-flex justify-content-center">
                         <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
                     </div>
-                    <div className="d-flex justify-content-center" style={{ paddingBottom: '15px', fontSize: '14px' }}>
-                        Preço por carta: {creditosPorCarta} créditos
-                    </div>
+                    <div className="d-flex justify-content-center cardCostInfo">Preço por carta: {creditosPorCarta} créditos</div>
                 </>
             )}
         </div>

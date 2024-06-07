@@ -1,35 +1,202 @@
-.card {
-    &.card-spacing {
-        margin: 0.5rem;
-    }
-
-    &.card-size {
-        width: 10rem;
-    }
-
-}
-
-
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 320px) and (max-width: 374px) {
     .card {
         &.card-spacing {
-            margin: 1rem;
+            margin: 0.3rem;
         }
 
         &.card-size {
-            width: 14rem;
+            width: 7.5rem;
         }
+    }
+
+    .cardRarityFontSize {
+        font-size: 7px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 7px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 4px;
+        font-family: Arial;
+        padding-bottom: 10px;
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 375px) and (max-width: 424px) {
     .card {
         &.card-spacing {
-            margin: 0.4rem;
+            margin: 0.3rem;
         }
 
         &.card-size {
-            width: 14rem;
+            width: 9.5rem;
         }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .card {
+        &.card-spacing {
+            margin: 0.3rem;
+        }
+
+        &.card-size {
+            width: 9.5rem;
+        }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .card {
+        &.card-spacing {
+            margin: 0.3rem;
+        }
+
+        &.card-size {
+            width: 9.5rem;
+        }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .card {
+        &.card-spacing {
+            margin: 0.3rem;
+        }
+
+        &.card-size {
+            width: 9.5rem;
+        }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 2559px) {
+    .card {
+        &.card-spacing {
+            margin: 0.3rem;
+        }
+
+        &.card-size {
+            width: 9.5rem;
+        }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 2560px) {
+    .card {
+        &.card-spacing {
+            margin: 0.3rem;
+        }
+
+        &.card-size {
+            width: 9.5rem;
+        }
+    }
+
+    .cardRarityFontSize {
+        font-size: 15px;
+        font-family: Arial;
+    }
+
+    .cardNameFontSize {
+        font-size: 15px;
+        font-family: Arial;
+        padding-bottom: 1px;
+    }
+
+    .cardCostInfo {
+        font-size: 8px;
+        font-family: Arial;
+        padding-bottom: 10px;
     }
 }

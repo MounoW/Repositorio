@@ -6,6 +6,8 @@ import { Navbar } from '../components/navbar/navbar';
 import { TableMarket } from '../components/tableMarket/tableMarket';
 import db from '../firebase';
 
+import './marketPage.scss';
+
 export const MarketPage = () => {
     const [cadernetastickers, setCadernetaStickers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
