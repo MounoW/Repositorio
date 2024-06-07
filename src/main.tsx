@@ -3,7 +3,6 @@ import 'bootstrap';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { TradesPage } from './pages/tradesPage.tsx';
 import { UserPage } from './pages/usersPage.tsx';
 import { MarketPage } from './pages/marketPage.tsx';
 import { LoginPage } from './pages/loginPage.tsx';
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
             {
                 path: '/userPage',
                 element: <UserPage />
-            },
-            {
-                path: '/trades',
-                element: <TradesPage />
             },
             {
                 path: '/market',
