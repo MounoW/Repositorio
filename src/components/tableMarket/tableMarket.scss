@@ -1,34 +1,368 @@
 .table_spacing {
     border-collapse: separate;
-    border-spacing: 0;
+    border-spacing: 3px;
+    /* Ajuste o valor conforme necessário */
     margin-top: 30px;
-}
-
-.table_spacing th,
-.table_spacing td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Defina a largura desejada para a coluna "Quantidade de Cartas" */
-.table_spacing .quantity-column {
-    width: 200px;
-    /* Por exemplo, ajuste conforme necessário */
-}
-
-.table_spacing th:not(:last-child),
-.table_spacing td:not(:last-child) {
-    border-right: 1px solid #ddd;
-}
-
-.table_spacing th:first-child,
-.table_spacing td:first-child {
-    border-left: 1px solid #ddd;
 }
 
 .table-bordered {
     border: 5px solid black;
     /* Cor e espessura da borda */
-    border-collapse: collapse;
-    /* Colapso de borda */
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+    .pacoteColumnSize {
+        font-size: 10px;
+    }
+
+    .pacoteTextSize {
+        font-size: 8px;
+    }
+
+    .precoColumnSize {
+        font-size: 10px;
+    }
+
+    .precoTextSize {
+        font-size: 10px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 10px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 10px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 10px;
+    }
+
+    .informacoesTextSize {
+        font-size: 8px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 10px;
+    }
+
+    .comprar-button {
+        font-size: 7px;
+        padding: 5px 16px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 9.7px;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+    .pacoteColumnSize {
+        font-size: 10px;
+    }
+
+    .pacoteTextSize {
+        font-size: 8px;
+    }
+
+    .precoColumnSize {
+        font-size: 10px;
+    }
+
+    .precoTextSize {
+        font-size: 10px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 10px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 10px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 10px;
+    }
+
+    .informacoesTextSize {
+        font-size: 8px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 10px;
+    }
+
+    .comprar-button {
+        font-size: 7px;
+        padding: 5px 16px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 9.7px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .pacoteColumnSize {
+        font-size: 10px;
+    }
+
+    .pacoteTextSize {
+        font-size: 8px;
+    }
+
+    .precoColumnSize {
+        font-size: 10px;
+    }
+
+    .precoTextSize {
+        font-size: 10px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 10px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 10px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 10px;
+    }
+
+    .informacoesTextSize {
+        font-size: 8px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 10px;
+    }
+
+    .comprar-button {
+        font-size: 7px;
+        padding: 5px 16px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 9.7px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .pacoteColumnSize {
+        font-size: 13px;
+    }
+
+    .pacoteTextSize {
+        font-size: 12px;
+    }
+
+    .precoColumnSize {
+        font-size: 13px;
+    }
+
+    .precoTextSize {
+        font-size: 12px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 13px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 12px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 13px;
+    }
+
+    .informacoesTextSize {
+        font-size: 12px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 13px;
+    }
+
+    .comprar-button {
+        font-size: 12px;
+        padding: 8px 25px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .pacoteColumnSize {
+        font-size: 20px;
+    }
+
+    .pacoteTextSize {
+        font-size: 20px;
+    }
+
+    .precoColumnSize {
+        font-size: 20px;
+    }
+
+    .precoTextSize {
+        font-size: 20px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 20px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 20px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 20px;
+    }
+
+    .informacoesTextSize {
+        font-size: 20px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 20px;
+    }
+
+    .comprar-button {
+        font-size: 20px;
+        padding: 8px 25px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1440px) and (max-width: 2559px) {
+    .pacoteColumnSize {
+        font-size: 20px;
+    }
+
+    .pacoteTextSize {
+        font-size: 20px;
+    }
+
+    .precoColumnSize {
+        font-size: 20px;
+    }
+
+    .precoTextSize {
+        font-size: 20px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 20px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 20px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 20px;
+    }
+
+    .informacoesTextSize {
+        font-size: 20px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 20px;
+    }
+
+    .comprar-button {
+        font-size: 20px;
+        padding: 8px 25px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 2560px) {
+    .pacoteColumnSize {
+        font-size: 35px;
+    }
+
+    .pacoteTextSize {
+        font-size: 35px;
+    }
+
+    .precoColumnSize {
+        font-size: 35px;
+    }
+
+    .precoTextSize {
+        font-size: 35px;
+    }
+
+    .quantidadeColumnSize {
+        font-size: 35px;
+    }
+
+    .quantidadeTextSize {
+        font-size: 35px;
+    }
+
+    .informacoesColumnSize {
+        font-size: 35px;
+    }
+
+    .informacoesTextSize {
+        font-size: 35px;
+    }
+
+
+    .comparColumnSize {
+        font-size: 35px;
+    }
+
+    .comprar-button {
+        font-size: 35px;
+        padding: 8px 25px;
+        border-radius: 15px;
+        border: 2px solid green;
+        background-color: rgb(198, 255, 198);
+    }
+
+    .legend {
+        font-size: 35px;
+    }
 }

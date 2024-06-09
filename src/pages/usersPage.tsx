@@ -170,13 +170,19 @@ export const UserPage = () => {
     return (
         <>
             <Navbar />
-            <div style={{ backgroundColor: '#243a69' }}>
+            <div className="page-background">
                 <div>
                     <DropDown setSelectedDepartment={setDepartmentId} />
                 </div>
                 <div
                     className="container"
-                    style={{ backgroundColor: '#f4f4f2', paddingTop: '20px', paddingBottom: '20px', paddingLeft: '20px', paddingRight: '20px' }}
+                    style={{
+                        backgroundColor: '#f4f4f2',
+                        paddingTop: '20px',
+                        paddingBottom: '20px',
+                        paddingLeft: '20px',
+                        paddingRight: '20px'
+                    }}
                 >
                     <div className="container" style={{ border: '5px solid black', paddingTop: '10px', backgroundColor: '#5b88a5' }}>
                         {filteredTeams.map(team => (

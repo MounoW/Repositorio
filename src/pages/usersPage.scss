@@ -1,3 +1,11 @@
+.page-background {
+    background-color: #243a69;
+    background-image: url('/images/background.png'); // caminho relativo da sua imagem de textura
+    background-repeat: no-repeat;
+    background-size: cover; // ou 'contain' dependendo do efeito desejado
+    background-blend-mode: overlay; // Isso fará a textura misturar com a cor de fundo
+}
+
 @media (min-width: 320px) and (max-width: 374px) {
     .textDepartment {
         font-size: 11px;
@@ -18,24 +26,24 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .textDepartment {
-        font-size: 14px;
+        font-size: 25px;
     }
 }
 
 @media (min-width: 1024px) and (max-width: 1439px) {
     .textDepartment {
-        font-size: 14px;
+        font-size: 25px;
     }
 }
 
 @media (min-width: 1440px) and (max-width: 2559px) {
     .textDepartment {
-        font-size: 14px;
+        font-size: 25px;
     }
 }
 
 @media (min-width: 2560px) {
     .textDepartment {
-        font-size: 14px;
+        font-size: 30px;
     }
 }

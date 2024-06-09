@@ -33,25 +33,27 @@ export const MarketPage = () => {
     }, []);
 
     return (
-        <div style={{ backgroundColor: '#243a69', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <Navbar />
-            {isLoading && (
-                <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            )}
-            {!isLoading && (
-                <ul className="list-group">
-                    {cadernetastickers.map(card => (
-                        <li key={card.sticker} className="list-group-item">
-                            {card.sticker}
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div className="marketPage-background">
+            <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+                <Navbar />
+                {isLoading && (
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                )}
+                {!isLoading && (
+                    <ul className="list-group">
+                        {cadernetastickers.map(card => (
+                            <li key={card.sticker} className="list-group-item">
+                                {card.sticker}
+                            </li>
+                        ))}
+                    </ul>
+                )}
 
-            <div className="container">
-                <TableMarket />
+                <div className="container">
+                    <TableMarket />
+                </div>
             </div>
         </div>
     );

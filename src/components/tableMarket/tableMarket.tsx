@@ -172,19 +172,23 @@ export const TableMarket: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="table table-responsive">
             <table className="table table_spacing table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">Pacote</th>
-                        <th className="text-center" scope="col">
+                        <th className="text-center pacoteColumnSize" scope="col">
+                            Pacote
+                        </th>
+                        <th className="text-center precoColumnSize" scope="col">
                             Preço
                         </th>
-                        <th className="text-center quantity-column" scope="col">
+                        <th className="text-center quantity-column quantidadeColumnSize" scope="col">
                             Quantidade de Cartas
                         </th>
-                        <th scope="col">Informações</th>
-                        <th className="text-center" scope="col">
+                        <th className="informacoesColumnSize" scope="col">
+                            Informações
+                        </th>
+                        <th className="text-center comparColumnSize" scope="col">
                             Comprar
                         </th>
                     </tr>
@@ -192,12 +196,12 @@ export const TableMarket: React.FC = () => {
                 <tbody>
                     {packs.map(pack => (
                         <tr key={pack.id}>
-                            <td>{pack.nome}</td>
-                            <td className="text-center">{pack.preco}</td>
-                            <td className="text-center quantity-column">{pack.quantidade}</td>
-                            <td>C(%)R(%)MR(%)E(%)L(%)</td>
+                            <td className="pacoteTextSize">{pack.nome}</td>
+                            <td className="text-center precoTextSize">{pack.preco}</td>
+                            <td className="text-center quantidadeTextSize">{pack.quantidade}</td>
+                            <td className="informacoesTextSize">C(%)R(%)MR(%)E(%)L(%)</td>
                             <td className="text-center">
-                                <button type="button" className="btn btn-outline-success" onClick={() => handleBuy(pack)}>
+                                <button type="button" className="comprar-button" onClick={() => handleBuy(pack)}>
                                     Comprar
                                 </button>
                             </td>
@@ -205,7 +209,9 @@ export const TableMarket: React.FC = () => {
                     ))}
                 </tbody>
             </table>
-            <div style={{ color: 'white' }}>Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)</div>
+            <div className="legend" style={{ color: 'white' }}>
+                Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)
+            </div>
         </div>
     );
 };

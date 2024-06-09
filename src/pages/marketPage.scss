@@ -1,13 +1,7 @@
-@media (min-width: 320px) and (max-width: 374px) {}
-
-@media (min-width: 375px) and (max-width: 424px) {}
-
-@media (min-width: 425px) and (max-width: 767px) {}
-
-@media (min-width: 768px) and (max-width: 1023px) {}
-
-@media (min-width: 1024px) and (max-width: 1439px) {}
-
-@media (min-width: 1440px) and (max-width: 2559px) {}
-
-@media (min-width: 2560px) {}
+.marketPage-background {
+    background-color: #243a69;
+    background-image: url('/images/background.png'); // caminho relativo da sua imagem de textura
+    background-repeat: no-repeat;
+    background-size: cover; // ou 'contain' dependendo do efeito desejado
+    background-blend-mode: overlay; // Isso fará a textura misturar com a cor de fundo
+}
