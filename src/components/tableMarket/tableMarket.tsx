@@ -6,6 +6,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, doc, updateDoc, getDoc, query, where } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { toast, ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import db from '../../firebase';
 
@@ -23,6 +25,11 @@ interface Pack {
         Epico: number;
         Lendario: number;
     };
+}
+
+interface Carta {
+    id: string;
+    raridade: string;
 }
 
 export const TableMarket: React.FC = () => {
@@ -88,13 +95,16 @@ export const TableMarket: React.FC = () => {
         return 'Lendário'; // Fallback, should not reach here if percentages sum to 100
     };
 
-    const buscarCartasPorRaridade = async (raridade: string): Promise<string[]> => {
+    const buscarCartasPorRaridade = async (raridade: string): Promise<Carta[]> => {
         try {
             const pessoasCollection = collection(db, 'Pessoas');
             const q = query(pessoasCollection, where('raridade', '==', raridade));
             const cartasSnapshot = await getDocs(q);
 
-            return cartasSnapshot.docs.map(doc => doc.id); // Supondo que o ID do documento é a identificação da pessoa/carta
+            return cartasSnapshot.docs.map(doc => ({
+                id: doc.id,
+                raridade: raridade
+            })); // Supondo que o ID do documento é a identificação da pessoa/carta
         } catch (error) {
             console.error(`Erro ao buscar cartas de raridade ${raridade}:`, error);
 
@@ -102,9 +112,9 @@ export const TableMarket: React.FC = () => {
         }
     };
 
-    const buscarTodasCartasPorRaridade = async (): Promise<Record<string, string[]>> => {
+    const buscarTodasCartasPorRaridade = async (): Promise<Record<string, Carta[]>> => {
         const raridades = ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário'];
-        const todasCartas: Record<string, string[]> = {};
+        const todasCartas: Record<string, Carta[]> = {};
 
         const fetchPromises = raridades.map(async raridade => {
             const cartas = await buscarCartasPorRaridade(raridade);
@@ -131,7 +141,7 @@ export const TableMarket: React.FC = () => {
 
                     if (userCredits >= pack.preco) {
                         const currentCartas: string[] = userDocSnap.data().cartas || [];
-                        const newCartasSet = new Set<string>();
+                        const newCartasSet = new Set<Carta>();
 
                         // Buscar todas as cartas por raridade uma vez
                         const todasCartasPorRaridade = await buscarTodasCartasPorRaridade();
@@ -150,7 +160,7 @@ export const TableMarket: React.FC = () => {
                         }
 
                         const newCartas = Array.from(newCartasSet);
-                        const updatedCartas = currentCartas.concat(newCartas);
+                        const updatedCartas = currentCartas.concat(newCartas.map(carta => carta.id));
 
                         // Atualizar o documento do usuário apenas uma vez
                         await updateDoc(userDocRef, {
@@ -158,21 +168,68 @@ export const TableMarket: React.FC = () => {
                             creditos: userCredits - pack.preco
                         });
 
-                        console.log('Cartas adicionadas com sucesso:', newCartas);
+                        const newCartasWithRarities = newCartas.map(carta => `${carta.id} (${carta.raridade})`);
+
+                        toast.success(`🃏 Você comprou o pacote ${pack.nome} e recebeu as seguintes cartas: ${newCartasWithRarities.join(', ')}🃏`, {
+                            position: 'top-center',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                            className: 'toast-message-and-container'
+                        });
                     } else {
-                        console.error('Créditos insuficientes para comprar o pacote.');
+                        toast.error(`😢Créditos insuficientes para comprar o pacote ${pack.nome}.😢`, {
+                            position: 'top-center',
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'light',
+                            transition: Zoom,
+                            className: 'toast-message-and-container'
+                        });
                     }
                 }
             } catch (error) {
-                console.error('Erro ao adicionar as cartas: ', error);
+                toast.error('😢Erro ao adicionar as cartas.😢', {
+                    position: 'top-center',
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                    transition: Zoom,
+                    className: 'toast-message-and-container'
+                });
             }
         } else {
-            console.error('Nenhum usuário autenticado.');
+            toast.error('😢Nenhum usuário autenticado.😢', {
+                position: 'top-center',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+                transition: Zoom,
+                className: 'toast-message-and-container'
+            });
         }
     };
 
     return (
         <div className="table table-responsive">
+            <ToastContainer />
             <table className="table table_spacing table-bordered">
                 <thead>
                     <tr>
@@ -185,7 +242,7 @@ export const TableMarket: React.FC = () => {
                         <th className="text-center quantity-column quantidadeColumnSize" scope="col">
                             Quantidade de Cartas
                         </th>
-                        <th className="informacoesColumnSize" scope="col">
+                        <th className="text-center informacoesColumnSize" scope="col">
                             Informações
                         </th>
                         <th className="text-center comparColumnSize" scope="col">
@@ -199,7 +256,10 @@ export const TableMarket: React.FC = () => {
                             <td className="pacoteTextSize">{pack.nome}</td>
                             <td className="text-center precoTextSize">{pack.preco}</td>
                             <td className="text-center quantidadeTextSize">{pack.quantidade}</td>
-                            <td className="informacoesTextSize">C(%)R(%)MR(%)E(%)L(%)</td>
+                            <td className="informacoesTextSize">
+                                C({pack.percentagem.Comum}%) R({pack.percentagem.Raro}%) MR({pack.percentagem.MuitoRaro}%) E({pack.percentagem.Epico}
+                                %) L({pack.percentagem.Lendario}%)
+                            </td>
                             <td className="text-center">
                                 <button type="button" className="comprar-button" onClick={() => handleBuy(pack)}>
                                     Comprar

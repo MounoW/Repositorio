@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable import/order */
 /* eslint-disable jsx-a11y/alt-text */
+
+import { toast, ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './card.scss';
 import '../quickSellButton/quickSellButton.scss';
-
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 
 import { QuickSellButton } from '../quickSellButton/quickSellButton';
 import { calculateCredits } from './function';
@@ -51,19 +51,24 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
     const handleRemoveCard = () => {
         removeCard(id, raridade);
         // Exibir notificação de sucesso ao remover a carta
-        Toastify({
-            text: 'Carta vendida com sucesso!',
-            duration: 3000, // Duração em milissegundos
-            // Mostrar botão de fechar
-            gravity: 'top', // Posição: "top" ou "bottom"
-            position: 'center', // Posição: "left", "center" ou "right"
-            backgroundColor: '#4CAF50' // Cor de fundo verde indicando sucesso
-        }).showToast();
+        toast.success(`🃏 Carta Vendida com sucesso 🃏`, {
+            position: 'top-center',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+            transition: Zoom,
+            className: 'toast-message-and-container'
+        });
     };
     const creditosPorCarta = calculateCredits(raridade);
 
     return (
         <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
+            <ToastContainer />
             <img
                 style={{ paddingTop: '10px' }}
                 src={
