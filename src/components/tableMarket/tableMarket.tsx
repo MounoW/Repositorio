@@ -228,50 +228,53 @@ export const TableMarket: React.FC = () => {
     };
 
     return (
-        <div className="table table-responsive">
+        <>
             <ToastContainer />
-            <table className="table table_spacing table-bordered">
-                <thead>
-                    <tr>
-                        <th className="text-center pacoteColumnSize" scope="col">
-                            Pacote
-                        </th>
-                        <th className="text-center precoColumnSize" scope="col">
-                            Preço
-                        </th>
-                        <th className="text-center quantity-column quantidadeColumnSize" scope="col">
-                            Quantidade de Cartas
-                        </th>
-                        <th className="text-center informacoesColumnSize" scope="col">
-                            Informações
-                        </th>
-                        <th className="text-center comparColumnSize" scope="col">
-                            Comprar
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {packs.map(pack => (
-                        <tr key={pack.id}>
-                            <td className="pacoteTextSize">{pack.nome}</td>
-                            <td className="text-center precoTextSize">{pack.preco}</td>
-                            <td className="text-center quantidadeTextSize">{pack.quantidade}</td>
-                            <td className="informacoesTextSize">
-                                C({pack.percentagem.Comum}%) R({pack.percentagem.Raro}%) MR({pack.percentagem.MuitoRaro}%) E({pack.percentagem.Epico}
-                                %) L({pack.percentagem.Lendario}%)
-                            </td>
-                            <td className="text-center">
-                                <button type="button" className="comprar-button" onClick={() => handleBuy(pack)}>
-                                    Comprar
-                                </button>
-                            </td>
+            <div className="table table-responsive">
+                <table className="table table_spacing table-bordered">
+                    <thead>
+                        <tr>
+                            <th className="text-center pacoteColumnSize" scope="col">
+                                Pacote
+                            </th>
+                            <th className="text-center precoColumnSize" scope="col">
+                                Preço
+                            </th>
+                            <th className="text-center quantity-column quantidadeColumnSize" scope="col">
+                                Quantidade de Cartas
+                            </th>
+                            <th className="text-center informacoesColumnSize" scope="col">
+                                Informações
+                            </th>
+                            <th className="text-center comparColumnSize" scope="col">
+                                Comprar
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="legend" style={{ color: 'white' }}>
-                Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)
+                    </thead>
+                    <tbody>
+                        {packs.map(pack => (
+                            <tr key={pack.id}>
+                                <td className="pacoteTextSize">{pack.nome}</td>
+                                <td className="text-center precoTextSize">{pack.preco}</td>
+                                <td className="text-center quantidadeTextSize">{pack.quantidade}</td>
+                                <td className="informacoesTextSize">
+                                    C({pack.percentagem.Comum}%) R({pack.percentagem.Raro}%) MR({pack.percentagem.MuitoRaro}%) E(
+                                    {pack.percentagem.Epico}
+                                    %) L({pack.percentagem.Lendario}%)
+                                </td>
+                                <td className="text-center">
+                                    <button type="button" className="comprar-button" onClick={() => handleBuy(pack)}>
+                                        Comprar
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div className="legend" style={{ color: 'white' }}>
+                    Legenda: C(Comum), R(Raro), MR(Muito Raro), E(Épico), L(Lendário)
+                </div>
             </div>
-        </div>
+        </>
     );
 };
