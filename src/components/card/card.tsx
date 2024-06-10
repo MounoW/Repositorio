@@ -67,37 +67,35 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
     const creditosPorCarta = calculateCredits(raridade);
 
     return (
-        <>
+        <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
             <ToastContainer />
-            <div className="card card-spacing card-size" style={{ border: `6px solid ${borderColor}` }}>
-                <img
-                    style={{ paddingTop: '10px' }}
-                    src={
-                        haveCard
-                            ? imagem
-                            : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
-                    }
-                />
-                <div className="card-body text-center" style={{ paddingBottom: '0px' }}>
-                    <h3 className="card-title cardNameFontSize">{nome}</h3>
-                    <h6
-                        className="card-title cardRarityFontSize"
-                        style={{
-                            color: textColor
-                        }}
-                    >
-                        {raridade}
-                    </h6>
-                </div>
-                {showQuickSellButton && (
-                    <>
-                        <div className="d-flex justify-content-center">
-                            <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
-                        </div>
-                        <div className="d-flex justify-content-center cardCostInfo">Preço por carta: {creditosPorCarta} créditos</div>
-                    </>
-                )}
+            <img
+                style={{ paddingTop: '10px' }}
+                src={
+                    haveCard
+                        ? imagem
+                        : 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133352010-stock-illustration-default-placeholder-man-and-woman.jpg'
+                }
+            />
+            <div className="card-body text-center" style={{ paddingBottom: '0px' }}>
+                <h3 className="card-title cardNameFontSize">{nome}</h3>
+                <h6
+                    className="card-title cardRarityFontSize"
+                    style={{
+                        color: textColor
+                    }}
+                >
+                    {raridade}
+                </h6>
             </div>
-        </>
+            {showQuickSellButton && (
+                <>
+                    <div className="d-flex justify-content-center">
+                        <QuickSellButton onQuickSell={handleRemoveCard} quantity={numOfRepeatedCards - 1} />
+                    </div>
+                    <div className="d-flex justify-content-center cardCostInfo">Preço por carta: {creditosPorCarta} créditos</div>
+                </>
+            )}
+        </div>
     );
 };
