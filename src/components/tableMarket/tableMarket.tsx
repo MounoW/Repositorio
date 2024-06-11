@@ -212,7 +212,7 @@ export const TableMarket: React.FC = () => {
                 });
             }
         } else {
-            toast.error('😢Nenhum usuário autenticado.😢', {
+            toast.error('😢Nenhum utilizador autenticado.😢', {
                 position: 'top-center',
                 autoClose: 5000,
                 hideProgressBar: false,
