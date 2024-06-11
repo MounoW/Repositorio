@@ -3,9 +3,9 @@ import 'bootstrap';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { UserPage } from './pages/usersPage.tsx';
-import { MarketPage } from './pages/marketPage.tsx';
-import { LoginPage } from './pages/loginPage.tsx';
+import { UserPage } from './pages/usersPage/usersPage.tsx';
+import { MarketPage } from './pages/marketPage/marketPage.tsx';
+import { LoginPage } from './pages/loginPage/loginPage.tsx';
 import App from './App.tsx';
 
 import './index.scss';

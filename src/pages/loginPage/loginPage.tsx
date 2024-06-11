@@ -1,14 +1,15 @@
+/* eslint-disable import/order */
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-import { UserPage } from './usersPage.tsx';
+import { UserPage } from '../usersPage/usersPage.tsx';
 
 // eslint-disable-next-line import/no-duplicates
-import { auth } from '../firebase.ts'; // Certifique-se de que 'db' é a instância do Firestore
+import { auth } from '../../firebase.ts'; // Certifique-se de que 'db' é a instância do Firestore
 // eslint-disable-next-line import/no-duplicates
-import db from '../firebase.ts';
+import db from '../../firebase.ts';
 
 import './loginPage.scss';
 

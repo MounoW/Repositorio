@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 import { DocumentData, collection, onSnapshot, query, where } from 'firebase/firestore';
 
-import { Navbar } from '../components/navbar/navbar';
-import { TableMarket } from '../components/tableMarket/tableMarket';
-import db from '../firebase';
+import { Navbar } from '../../components/navbar/navbar';
+import { TableMarket } from '../../components/tableMarket/tableMarket';
+import db from '../../firebase';
 
 import './marketPage.scss';
 

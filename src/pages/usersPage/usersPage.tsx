@@ -10,10 +10,10 @@ import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebas
 import { getAuth } from 'firebase/auth';
 import './usersPage.scss';
 
-import { Card } from '../components/card/card';
-import { Navbar } from '../components/navbar/navbar';
-import { DropDown } from '../components/dropdown/dropdown';
-import db from '../firebase';
+import { Card } from '../../components/card/card';
+import { Navbar } from '../../components/navbar/navbar';
+import { DropDown } from '../../components/dropdown/dropdown';
+import db from '../../firebase';
 
 interface UserInfo {
     id: string;
