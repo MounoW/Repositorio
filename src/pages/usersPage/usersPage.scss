@@ -4,6 +4,8 @@
     background-repeat: no-repeat;
     background-size: cover; // ou 'contain' dependendo do efeito desejado
     background-blend-mode: overlay; // Isso fará a textura misturar com a cor de fundo
+    height: 10000000%;
+
 }
 
 @media (min-width: 320px) and (max-width: 374px) {
@@ -33,6 +35,7 @@
 @media (min-width: 1024px) and (max-width: 1439px) {
     .textDepartment {
         font-size: 25px;
+
     }
 }
 
