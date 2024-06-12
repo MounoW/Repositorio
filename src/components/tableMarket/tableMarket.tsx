@@ -29,6 +29,7 @@ interface Pack {
 
 interface Carta {
     id: string;
+    nome: string;
     raridade: string;
 }
 
@@ -103,8 +104,9 @@ export const TableMarket: React.FC = () => {
 
             return cartasSnapshot.docs.map(doc => ({
                 id: doc.id,
+                nome: doc.data().nome, // Aqui pegamos o campo 'nome'
                 raridade: raridade
-            })); // Supondo que o ID do documento é a identificação da pessoa/carta
+            }));
         } catch (error) {
             console.error(`Erro ao buscar cartas de raridade ${raridade}:`, error);
 
@@ -143,7 +145,6 @@ export const TableMarket: React.FC = () => {
                         const currentCartas: string[] = userDocSnap.data().cartas || [];
                         const newCartasSet = new Set<Carta>();
 
-                        // Buscar todas as cartas por raridade uma vez
                         const todasCartasPorRaridade = await buscarTodasCartasPorRaridade();
 
                         while (newCartasSet.size < pack.quantidade) {
@@ -160,15 +161,14 @@ export const TableMarket: React.FC = () => {
                         }
 
                         const newCartas = Array.from(newCartasSet);
-                        const updatedCartas = currentCartas.concat(newCartas.map(carta => carta.id));
+                        const updatedCartas = currentCartas.concat(newCartas.map(carta => carta.nome)); // Aqui usamos o campo 'nome'
 
-                        // Atualizar o documento do usuário apenas uma vez
                         await updateDoc(userDocRef, {
                             cartas: updatedCartas,
                             creditos: userCredits - pack.preco
                         });
 
-                        const newCartasWithRarities = newCartas.map(carta => `${carta.id} (${carta.raridade})`);
+                        const newCartasWithRarities = newCartas.map(carta => `${carta.nome} (${carta.raridade})`);
 
                         toast.success(`🃏 Você comprou o pacote ${pack.nome} e recebeu as seguintes cartas: ${newCartasWithRarities.join(', ')}🃏`, {
                             position: 'top-center',

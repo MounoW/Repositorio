@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -54,7 +55,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">
-                <a className="navbar-bnd" href="/userPage">
+                <a className="navbar-bnd">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button
