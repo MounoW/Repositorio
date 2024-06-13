@@ -2,7 +2,7 @@ interface QuickSellButtonProps {
     onQuickSell: () => void;
     quantity: number;
 }
-
+//Função que permite vender os stickers repetidos
 export const QuickSellButton = ({ onQuickSell, quantity }: QuickSellButtonProps) => {
     return (
         <div>

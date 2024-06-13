@@ -11,7 +11,7 @@ import { QuickSellButton } from '../quickSellButton/quickSellButton';
 import { calculateCredits } from './function';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-
+//Define os tipos das propriedades do componente card.
 interface CardProps {
     nome: string;
     equipa_id: string;
@@ -22,7 +22,7 @@ interface CardProps {
     userCards: string[];
     removeCard: (cardId: string, raridade: string) => void;
 }
-
+//Determina a cor do card,de acordo com a raridade
 export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: CardProps) => {
     const getColors = (raridade: string) => {
         switch (raridade) {
@@ -30,7 +30,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                 return { borderColor: 'gray', textColor: 'gray' };
             case 'Raro':
                 return { borderColor: 'blue', textColor: 'blue' };
-            case 'Muito Raro':
+            case 'MuitoRaro':
                 return { borderColor: 'green', textColor: 'green' };
             case 'Épico':
                 return { borderColor: 'purple', textColor: 'purple' };
@@ -40,7 +40,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
                 return { borderColor: 'white', textColor: 'white' };
         }
     };
-
+    //Propriedades para a renderização do cartão
     const { borderColor, textColor } = getColors(raridade);
 
     const haveCard = userCards.includes(id);
@@ -58,7 +58,7 @@ export const Card = ({ nome, raridade, imagem, id, userCards, removeCard }: Card
             // Mostrar botão de fechar
             gravity: 'top', // Posição: "top" ou "bottom"
             position: 'center', // Posição: "left", "center" ou "right"
-            backgroundColor: '#4CAF50' // Cor de fundo verde indicando sucesso
+            backgroundColor: '#4CAF50'
         }).showToast();
     };
     const creditosPorCarta = calculateCredits(raridade);

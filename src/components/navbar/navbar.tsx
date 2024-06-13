@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+//Importa dependências do React,Firebase e estilos necessários para a Navbar
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -9,10 +10,11 @@ import db, { auth } from '../../firebase';
 import './navbar.scss';
 
 export const Navbar = () => {
-    const [credits, setCredits] = useState(0);
-    const [name, setUserName] = useState('');
-    const [numCards, setNumCards] = useState(0);
+    const [credits, setCredits] = useState(0); //Armazena os créditos do usuario.
+    const [name, setUserName] = useState(''); // Armazena o nome do usuário
+    const [numCards, setNumCards] = useState(0); //Armazena o número de stickers
 
+    //Código para atualizar o estado dos componentes(nome, créditos e nºde stickers)
     useEffect(() => {
         const unsubscribeFromAuth = onAuthStateChanged(auth, user => {
             if (user) {
@@ -52,6 +54,7 @@ export const Navbar = () => {
 
     const cardsText = `${numCards}/30`;
 
+    //Apresenta a estrutura da navbar,exibe os dados do utilizador(nome,créditos,nºde stickers),e estilos.
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">

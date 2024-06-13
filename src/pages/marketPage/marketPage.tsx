@@ -1,20 +1,20 @@
 //@ts-nocheck
 import { useEffect, useState } from 'react';
-import { DocumentData, collection, onSnapshot, query, where } from 'firebase/firestore';
+import { DocumentData, collection, onSnapshot, query } from 'firebase/firestore';
 
 import { Navbar } from '../../components/navbar/navbar';
 import { TableMarket } from '../../components/tableMarket/tableMarket';
 import db from '../../firebase';
 
 import './marketPage.scss';
-
+//Função para buscar e exibir os stickers da coleção "Carderneta_Stickers" do FireStore
 export const MarketPage = () => {
     const [cadernetastickers, setCadernetaStickers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const colletionRef = collection(db, 'Caderneta_Stickers');
-        const queryToDataBase = query(colletionRef, where('sticker', '>=', 'Artur'), where('sticker', '<=', 'Artur' + '\uf8ff'));
+        const queryToDataBase = query(colletionRef);
 
         setIsLoading(true);
         const unsub = onSnapshot(queryToDataBase, querySnapshot => {

@@ -14,7 +14,7 @@ import { Card } from '../../components/card/card';
 import { Navbar } from '../../components/navbar/navbar';
 import { DropDown } from '../../components/dropdown/dropdown';
 import db from '../../firebase';
-
+//Estrutura com o tipo dos componentes do User
 interface UserInfo {
     id: string;
     nome: string;
@@ -23,7 +23,7 @@ interface UserInfo {
     department_id: string;
     imagem: string;
 }
-
+//Estrutura com o tipo dos componentes das Equipas
 interface TeamInfo {
     id: string;
     nome: string;
@@ -43,7 +43,7 @@ export const UserPage = () => {
 
     useEffect(() => {
         if (!userId) return;
-
+        //Acede aos documentos da coleção ´Pessoas' e atualiza o estado 'users'
         const fetchUsers = async () => {
             try {
                 const pessoasCollection = collection(db, 'Pessoas');
@@ -62,7 +62,7 @@ export const UserPage = () => {
                 console.error('Erro ao buscar documentos: ', error);
             }
         };
-
+        //Função que permite aceder às coleções 'Departamento' e 'Equipas' no Firestore, mapeando os nomes dos departamentos e atualizando o estado teams
         const fetchTeams = async () => {
             try {
                 const departamentosCollection = collection(db, 'Departamento');
@@ -87,7 +87,7 @@ export const UserPage = () => {
                 console.error('Erro ao buscar documentos: ', error);
             }
         };
-
+        //Verifica alterações nos documentos da coleção 'Utilizadores', atualizando userCards e userCredits quando há mudanças.
         const fetchUserCards = async () => {
             const collectionRef = collection(db, 'Utilizadores');
             const unsub = onSnapshot(collectionRef, querySnapshot => {
@@ -114,14 +114,14 @@ export const UserPage = () => {
         fetchTeams();
         fetchUserCards();
     }, [userId]);
-
+    //Função para retornar os créditos,de acordo com a raridade
     const calculateCredits = (raridade: string): number => {
         switch (raridade) {
             case 'Comum':
                 return 100;
             case 'Raro':
                 return 500;
-            case 'Muito Raro':
+            case 'MuitoRaro':
                 return 1000;
             case 'Épico':
                 return 2000;
@@ -131,7 +131,7 @@ export const UserPage = () => {
                 return 0;
         }
     };
-
+    //Função para remover carta, caso esta esteja repetida
     const removeCard = async (cardId: string, raridade: string) => {
         try {
             if (userId) {
@@ -164,8 +164,8 @@ export const UserPage = () => {
 
     const filteredTeams = departmentId === 'Todos' ? teams : teams.filter(team => team.department_id === departmentId);
     const filteredUsers = departmentId === 'Todos' ? users : users.filter(user => user.department_id === departmentId);
-
-    const rarityOrder = ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário'];
+    //Ordenar os stickers por raridade
+    const rarityOrder = ['Comum', 'Raro', 'MuitoRaro', 'Épico', 'Lendário'];
 
     return (
         <>

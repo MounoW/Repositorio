@@ -1,11 +1,11 @@
 // import React from 'react';
 
 import './dropdown.scss';
-
+//Define o departamento com base no selecionado na dropdown
 interface DropDownProps {
     setSelectedDepartment: (departmentId: string) => void;
 }
-
+//Esta função é chamada sempre que existe uma alteração na dropdown
 export const DropDown = ({ setSelectedDepartment }: DropDownProps) => {
     const handleDepartmentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDepartment(event.target.value);

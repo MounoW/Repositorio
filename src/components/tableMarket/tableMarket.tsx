@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import db from '../../firebase';
 
 import './tableMarket.scss';
-
+//Define a estrutura de um pack,bem como o tipo dos componentes
 interface Pack {
     id: string;
     nome: string;
@@ -22,11 +22,11 @@ interface Pack {
         Comum: number;
         Raro: number;
         MuitoRaro: number;
-        Epico: number;
-        Lendario: number;
+        Épico: number;
+        Lendário: number;
     };
 }
-
+//Define a estrutura de uma carta,bem como o tipo dos componentes que a constituem
 interface Carta {
     id: string;
     raridade: string;
@@ -38,6 +38,7 @@ export const TableMarket: React.FC = () => {
     const auth = getAuth();
 
     useEffect(() => {
+        //Busca os dados dos pacotes da coleção 'Packs' no Firebase e atualiza o estado
         const fetchPacks = async () => {
             try {
                 const querySnapshot = await getDocs(collection(db, 'Packs'));
@@ -51,7 +52,7 @@ export const TableMarket: React.FC = () => {
                 console.error('Erro ao buscar os dados: ', error);
             }
         };
-
+        //Busca os créditos do usuário autenticado no Firebase;
         const fetchUserCredits = async () => {
             const user = auth.currentUser;
 
@@ -73,16 +74,16 @@ export const TableMarket: React.FC = () => {
         fetchPacks();
         fetchUserCredits();
     }, []);
-
+    //Função que gera um número aleatório entre dois números
     function randoIntFromInterval(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
-
+    //Determina a raridade com base em percentagens
     const gerarRaridade = (percentagens: { [key: string]: number }): string => {
         const randomNum = randoIntFromInterval(1, 100);
         let cumulativeProbability = 0;
 
-        for (const raridade of ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário']) {
+        for (const raridade of ['Comum', 'Raro', 'MuitoRaro', 'Épico', 'Lendário']) {
             cumulativeProbability += percentagens[raridade] || 0;
 
             if (randomNum <= cumulativeProbability) {
@@ -92,9 +93,9 @@ export const TableMarket: React.FC = () => {
 
         console.error('Probabilidades não somam 100:', percentagens);
 
-        return 'Lendário'; // Fallback, should not reach here if percentages sum to 100
+        return 'Lendário';
     };
-
+    //Busca cartas de uma determinada raridade no Firestore
     const buscarCartasPorRaridade = async (raridade: string): Promise<Carta[]> => {
         try {
             const pessoasCollection = collection(db, 'Pessoas');
@@ -111,9 +112,9 @@ export const TableMarket: React.FC = () => {
             return [];
         }
     };
-
+    //Busca todas as cartas por raridade de uma vez só
     const buscarTodasCartasPorRaridade = async (): Promise<Record<string, Carta[]>> => {
-        const raridades = ['Comum', 'Raro', 'Muito Raro', 'Épico', 'Lendário'];
+        const raridades = ['Comum', 'Raro', 'MuitoRaro', 'Épico', 'Lendário'];
         const todasCartas: Record<string, Carta[]> = {};
 
         const fetchPromises = raridades.map(async raridade => {
@@ -126,7 +127,7 @@ export const TableMarket: React.FC = () => {
 
         return todasCartas;
     };
-
+    //Processo a compra de um pacote,verificando os créditos dos utilizadores,gerando as cartas e atualizando o Firestore
     const handleBuy = async (pack: Pack) => {
         const user = auth.currentUser;
 
@@ -226,6 +227,7 @@ export const TableMarket: React.FC = () => {
             });
         }
     };
+    //Renderiza uma tabela com diferentes packs e com informações,tendo ainda um botão de compra;
 
     return (
         <>
@@ -259,8 +261,8 @@ export const TableMarket: React.FC = () => {
                                 <td className="text-center quantidadeTextSize">{pack.quantidade}</td>
                                 <td className="informacoesTextSize">
                                     C({pack.percentagem.Comum}%) R({pack.percentagem.Raro}%) MR({pack.percentagem.MuitoRaro}%) E(
-                                    {pack.percentagem.Epico}
-                                    %) L({pack.percentagem.Lendario}%)
+                                    {pack.percentagem.Épico}
+                                    %) L({pack.percentagem.Lendário}%)
                                 </td>
                                 <td className="text-center">
                                     <button type="button" className="comprar-button" onClick={() => handleBuy(pack)}>

@@ -15,7 +15,7 @@ import './loginPage.scss';
 
 export const LoginPage = () => {
     const [loggedIn, setLoggedIn] = useState(false);
-
+    //Função para realizar a autenticação através do Google
     const handleGoogle = async () => {
         const provider = new GoogleAuthProvider();
 
@@ -49,6 +49,7 @@ export const LoginPage = () => {
         }
     };
 
+    //Direciona o utilizador para a Userpage após efetuar o login
     if (loggedIn) {
         return <UserPage />;
     }
