@@ -1,21 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-//Importa dependências do React,Firebase e estilos necessários para a Navbar
+// Importa dependências do React, Firebase e estilos necessários para a Navbar
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, collection, getDocs } from 'firebase/firestore';
 
 import db, { auth } from '../../firebase';
 
 import './navbar.scss';
 
 export const Navbar = () => {
-    const [credits, setCredits] = useState(0); //Armazena os créditos do usuario.
+    const [credits, setCredits] = useState(0); // Armazena os créditos do usuário.
     const [name, setUserName] = useState(''); // Armazena o nome do usuário
-    const [numCards, setNumCards] = useState(0); //Armazena o número de stickers
+    const [numCards, setNumCards] = useState(0); // Armazena o número de stickers
+    const [totalPeople, setTotalPeople] = useState(30); // Armazena a quantidade de documentos na coleção "Pessoas"
 
-    //Código para atualizar o estado dos componentes(nome, créditos e nºde stickers)
+    // Função para obter a quantidade de documentos na coleção "Pessoas"
+    const fetchTotalPeople = async () => {
+        const peopleCollection = collection(db, 'Pessoas');
+        const peopleSnapshot = await getDocs(peopleCollection);
+
+        setTotalPeople(peopleSnapshot.size);
+    };
+
+    // Código para atualizar o estado dos componentes (nome, créditos e nº de stickers)
     useEffect(() => {
+        fetchTotalPeople(); // Chama a função para obter a quantidade de documentos na coleção "Pessoas"
+
         const unsubscribeFromAuth = onAuthStateChanged(auth, user => {
             if (user) {
                 setUserName(user.displayName || '');
@@ -52,13 +63,14 @@ export const Navbar = () => {
         };
     }, []);
 
-    const cardsText = `${numCards}/30`;
+    //Contador de stickers da navbar StickersQueOUtilizadorTem/StickersTotais
+    const cardsText = `${numCards}/${totalPeople}`;
 
-    //Apresenta a estrutura da navbar,exibe os dados do utilizador(nome,créditos,nºde stickers),e estilos.
+    // Apresenta a estrutura da navbar, exibe os dados do usuário (nome, créditos, nº de stickers), e estilos.
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-custom-color">
             <div className="container-fluid">
-                <a className="navbar-bnd">
+                <a className="navbar-brand">
                     <img src="images/logo.png" alt="" style={{ width: '150px', height: '60px' }} />
                 </a>
                 <button

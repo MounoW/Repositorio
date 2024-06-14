@@ -30,6 +30,7 @@ interface Pack {
 interface Carta {
     id: string;
     raridade: string;
+    nome: string;
 }
 
 export const TableMarket: React.FC = () => {
@@ -104,7 +105,8 @@ export const TableMarket: React.FC = () => {
 
             return cartasSnapshot.docs.map(doc => ({
                 id: doc.id,
-                raridade: raridade
+                raridade: raridade,
+                nome: doc.data().nome
             })); // Supondo que o ID do documento é a identificação da pessoa/carta
         } catch (error) {
             console.error(`Erro ao buscar cartas de raridade ${raridade}:`, error);
@@ -169,9 +171,9 @@ export const TableMarket: React.FC = () => {
                             creditos: userCredits - pack.preco
                         });
 
-                        const newCartasWithRarities = newCartas.map(carta => `${carta.id} (${carta.raridade})`);
+                        const newCartasWithNames = newCartas.map(carta => `${carta.nome} (${carta.raridade})`);
 
-                        toast.success(`🃏 Você comprou o pacote ${pack.nome} e recebeu as seguintes cartas: ${newCartasWithRarities.join(', ')}🃏`, {
+                        toast.success(`🃏 Você comprou o pacote ${pack.nome} e recebeu as seguintes cartas: ${newCartasWithNames.join(', ')}🃏`, {
                             position: 'top-center',
                             autoClose: 5000,
                             hideProgressBar: false,
